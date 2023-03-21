@@ -1,0 +1,5 @@
+<h1>{{provision?.title}}</h1>
+<div *ngFor="let article of provision?.articles">
+    <h2>{{article.title}}</h2>
+    <p *ngFor="let paragraph of article?.paragraphs">{{paragraph}}</p>
+</div>
