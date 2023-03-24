@@ -1,0 +1,18 @@
+<mat-toolbar color="primary">
+  <button mat-button (click)="openCloseSidebar()">
+    <mat-icon>
+      list icon
+    </mat-icon>
+  </button>
+
+  Legal Regulations App
+</mat-toolbar>
+
+<mat-sidenav-container hasBackdrop="false">
+  <mat-sidenav class="mat-elevation-z8" mode="side" [opened]="isSidebarOpened">
+    <app-provision-menu [provision]="provision"></app-provision-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-legal-provision [provision]="provision"></app-legal-provision>
+  </mat-sidenav-content>
+</mat-sidenav-container>

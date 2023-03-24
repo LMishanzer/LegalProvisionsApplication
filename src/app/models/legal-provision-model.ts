@@ -2,11 +2,19 @@ import { Guid } from "guid-typescript";
 
 export interface LegalProvision {
     id?: Guid,
-    title?: string,
-    articles?: Article[]
+    creationTime?: Date,
+    fields?: LegalProvisionFields
 }
 
-export interface Article {
+export interface LegalProvisionFields {
+    keyWords?: string[],
+    issueTime?: Date,
+    content?: ContentItem
+}
+
+export interface ContentItem {
+    name?: string,
     title?: string,
-    paragraphs?: string[]
+    textMain?: string,
+    innerItems?: ContentItem[]
 }

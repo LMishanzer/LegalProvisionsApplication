@@ -1,0 +1,5 @@
+<mat-list>
+  <app-provision-menu-item *ngFor="let child of provision.fields?.content?.innerItems"
+                           [contentItem]="child"
+                           [level]="0"></app-provision-menu-item>
+</mat-list>

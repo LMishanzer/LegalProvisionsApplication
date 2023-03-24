@@ -9,11 +9,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatListModule } from '@angular/material/list';
+import { ProvisionContentComponent } from './components/provision-content/provision-content.component';
+import { ProvisionSidebarComponent } from './components/provision-sidebar/provision-sidebar.component';
+import {MatCardModule} from "@angular/material/card";
+import { ProvisionMenuComponent } from './components/provision-menu/provision-menu.component';
+import { ProvisionMenuItemComponent } from './components/provision-menu-item/provision-menu-item.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        LegalProvisionComponent
+        LegalProvisionComponent,
+        ProvisionContentComponent,
+        ProvisionSidebarComponent,
+        ProvisionMenuComponent,
+        ProvisionMenuItemComponent
     ],
     imports: [
         BrowserModule,
@@ -22,7 +35,12 @@ import { MatIconModule } from '@angular/material/icon';
         HttpClientModule,
         MatButtonModule,
         MatMenuModule,
-        MatIconModule
+        MatIconModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatListModule,
+        MatExpansionModule,
+        MatCardModule
     ],
     providers: [],
     bootstrap: [AppComponent]
