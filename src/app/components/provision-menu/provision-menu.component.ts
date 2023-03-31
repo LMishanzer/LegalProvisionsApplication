@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {LegalProvision} from "../../models/legal-provision-model";
+import {ContentCreator, LegalProvision} from "../../models/legal-provision-models";
 
 @Component({
   selector: 'app-provision-menu',
@@ -7,5 +7,5 @@ import {LegalProvision} from "../../models/legal-provision-model";
   styleUrls: ['./provision-menu.component.css']
 })
 export class ProvisionMenuComponent {
-    @Input() provision: LegalProvision = {};
+    @Input() provision: LegalProvision = ContentCreator.getEmptyProvision();
 }

@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,6 +19,11 @@ import { ProvisionSidebarComponent } from './components/provision-sidebar/provis
 import {MatCardModule} from "@angular/material/card";
 import { ProvisionMenuComponent } from './components/provision-menu/provision-menu.component';
 import { ProvisionMenuItemComponent } from './components/provision-menu-item/provision-menu-item.component';
+import { AddProvisionComponent } from './components/add-provision/add-provision.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import {MatInputModule} from "@angular/material/input";
+import { AddProvisionContentComponent } from './components/add-provision-content/add-provision-content.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -26,7 +32,10 @@ import { ProvisionMenuItemComponent } from './components/provision-menu-item/pro
         ProvisionContentComponent,
         ProvisionSidebarComponent,
         ProvisionMenuComponent,
-        ProvisionMenuItemComponent
+        ProvisionMenuItemComponent,
+        AddProvisionComponent,
+        ToolbarComponent,
+        AddProvisionContentComponent
     ],
     imports: [
         BrowserModule,
@@ -40,7 +49,10 @@ import { ProvisionMenuItemComponent } from './components/provision-menu-item/pro
         MatSidenavModule,
         MatListModule,
         MatExpansionModule,
-        MatCardModule
+        MatCardModule,
+        MatInputModule,
+        FormsModule,
+        MatSnackBarModule
     ],
     providers: [],
     bootstrap: [AppComponent]

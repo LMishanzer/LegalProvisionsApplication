@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LegalProvision} from "../../models/legal-provision-model";
+import {ContentCreator, LegalProvision} from "../../models/legal-provision-models";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {Guid} from "guid-typescript";
 
@@ -9,7 +9,7 @@ import {Guid} from "guid-typescript";
   styleUrls: ['./provision-sidebar.component.css']
 })
 export class ProvisionSidebarComponent implements OnInit {
-    provision: LegalProvision = {};
+    provision: LegalProvision = ContentCreator.getEmptyProvision();
 
     isSidebarOpened: boolean = false;
 
@@ -19,9 +19,5 @@ export class ProvisionSidebarComponent implements OnInit {
     ngOnInit() {
         this.provisionsApiService.getOne(Guid.parse('b7c77cc5-efd8-4c9d-9019-60201f0d5567'))
             .subscribe(result => this.provision = result);
-    }
-
-    openCloseSidebar() {
-        this.isSidebarOpened = !this.isSidebarOpened;
     }
 }

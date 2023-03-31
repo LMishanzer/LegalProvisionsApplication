@@ -1,7 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import { ProvisionsApiService } from 'src/app/services/provisions-api.service';
-import { Guid } from "guid-typescript";
-import { LegalProvision } from 'src/app/models/legal-provision-model';
+import {Component, Input} from '@angular/core';
+import {ContentCreator, LegalProvision} from 'src/app/models/legal-provision-models';
 
 @Component({
   selector: 'app-legal-provision',
@@ -9,5 +7,5 @@ import { LegalProvision } from 'src/app/models/legal-provision-model';
   styleUrls: ['./legal-provision.component.css']
 })
 export class LegalProvisionComponent {
-    @Input() provision: LegalProvision = {};
+    @Input() provision: LegalProvision = ContentCreator.getEmptyProvision();
 }

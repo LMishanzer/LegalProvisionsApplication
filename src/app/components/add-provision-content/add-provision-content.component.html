@@ -1,0 +1,23 @@
+<mat-card>
+  <div class="form">
+    <mat-form-field>
+      <mat-label>Section title</mat-label>
+      <input matInput [(ngModel)]="content.title" >
+    </mat-form-field>
+  </div>
+  <div class="form">
+    <mat-form-field>
+      <mat-label>{{label}}</mat-label>
+      <textarea matInput [(ngModel)]="content.name" ></textarea>
+    </mat-form-field>
+  </div>
+
+  <ng-container *ngIf="content.innerItems">
+    <app-add-provision-content [content]="item" [order]="order + 1"
+      *ngFor="let item of content.innerItems"></app-add-provision-content>
+  </ng-container>
+
+  <div class="add-section-button">
+    <button mat-button (click)="addSection()">Add section</button>
+  </div>
+</mat-card>

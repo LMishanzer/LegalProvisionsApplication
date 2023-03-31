@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ContentItem } from 'src/app/models/legal-provision-model';
+import { ContentItem } from 'src/app/models/legal-provision-models';
 
 @Component({
   selector: 'app-provision-content',
@@ -7,7 +7,12 @@ import { ContentItem } from 'src/app/models/legal-provision-model';
   styleUrls: ['./provision-content.component.css']
 })
 export class ProvisionContentComponent {
-    @Input() content?: ContentItem = {};
+    @Input() content: ContentItem = {
+        title: '',
+        textMain: '',
+        innerItems: []
+    };
+
     @Input() order: number = 1;
 
 }
