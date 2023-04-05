@@ -1,0 +1,18 @@
+/*footer {*/
+/*  height: 100px;*/
+/*  background-color: grey;*/
+/*  width: 100%;*/
+/*  z-index: 10;*/
+/*}*/
+
+
+mat-toolbar {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-text {
+  color: #B7B7B7;
+  margin: auto;
+}

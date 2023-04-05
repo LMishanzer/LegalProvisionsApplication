@@ -7,11 +7,40 @@
 }
 
 mat-form-field {
-  width: 90%;
+  width: 70%;
   margin: 20px 5% 0 5%;
 }
 
 mat-card {
   /*width: 100%;*/
   margin: 20px 20px 0 20px;
+}
+
+.dropdown-content {
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+#myDropdown a {
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+  color: grey;
+}
+
+h3 {
+  margin: 30px 0 0 30px;
+}
+
+.delete-button {
+  height: 30px;
+  width: 30px;
+  padding: 0;
+}
+
+.delete-button mat-icon {
+  margin: auto;
 }

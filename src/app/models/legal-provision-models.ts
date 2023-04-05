@@ -13,10 +13,11 @@ export interface LegalProvisionFields {
 }
 
 export interface ContentItem {
-    name?: string,
+    type?: string,
     title: string,
     textMain: string,
-    innerItems: ContentItem[]
+    innerItems: ContentItem[],
+    innerItemsType?: string
 }
 
 export class ContentCreator {

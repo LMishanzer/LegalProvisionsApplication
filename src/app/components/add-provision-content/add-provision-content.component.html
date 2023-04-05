@@ -1,15 +1,26 @@
 <mat-card>
-  <div class="form">
+  <h3>{{content.type}}</h3>
+  <div class="form" *ngIf="titleVisible">
     <mat-form-field>
       <mat-label>Section title</mat-label>
       <input matInput [(ngModel)]="content.title" >
     </mat-form-field>
+    <button class="delete-button" mat-raised-button color="warn" (click)="titleVisible = false" >
+      <mat-icon>
+        delete
+      </mat-icon>
+    </button>
   </div>
-  <div class="form">
+  <div class="form" *ngIf="textMainVisible">
     <mat-form-field>
       <mat-label>{{label}}</mat-label>
-      <textarea matInput [(ngModel)]="content.name" ></textarea>
+      <textarea matInput [(ngModel)]="content.textMain" ></textarea>
     </mat-form-field>
+    <button class="delete-button" mat-raised-button color="warn" (click)="textMainVisible = false">
+      <mat-icon>
+        delete
+      </mat-icon>
+    </button>
   </div>
 
   <ng-container *ngIf="content.innerItems">
@@ -18,6 +29,12 @@
   </ng-container>
 
   <div class="add-section-button">
-    <button mat-button (click)="addSection()">Add section</button>
+    <button mat-stroked-button *ngIf="content.innerItemsType" (click)="addSection(content.innerItemsType)">Add section</button>
+    <button mat-stroked-button *ngIf="!content.innerItemsType" (click)="switchDropdown()">Add section</button>
+    <div id="myDropdown" class="dropdown-content" *ngIf="showDropdown">
+      <a (click)="addSection('Část')">Část</a>
+      <a (click)="addSection('Článek')">Článek</a>
+      <a (click)="addSection('Odstavec')">Odstavec</a>
+    </div>
   </div>
 </mat-card>

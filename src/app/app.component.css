@@ -1,0 +1,13 @@
+div {
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+app-toolbar {
+  flex: 1 1 auto;
+}
+
+app-provision-sidebar {
+  flex: 30 1 auto;
+}

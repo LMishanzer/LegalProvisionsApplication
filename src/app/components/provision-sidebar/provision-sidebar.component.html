@@ -5,6 +5,15 @@
     <app-provision-menu [provision]="provision"></app-provision-menu>
   </mat-sidenav>
   <mat-sidenav-content>
+    <button mat-fab color="primary" (click)="isSidebarOpened = !isSidebarOpened">
+      <mat-icon *ngIf="!isSidebarOpened">
+        arrow_forward
+      </mat-icon>
+      <mat-icon *ngIf="isSidebarOpened">
+        arrow_back
+      </mat-icon>
+    </button>
+
     <app-legal-provision [provision]="provision"></app-legal-provision>
   </mat-sidenav-content>
 </mat-sidenav-container>

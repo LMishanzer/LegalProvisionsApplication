@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-toolbar',
@@ -6,9 +6,9 @@ import {Component, EventEmitter, Output} from '@angular/core';
   styleUrls: ['./toolbar.component.css']
 })
 export class ToolbarComponent {
-    @Output() stateChanged = new EventEmitter<boolean>();
+    @Input() isSidebarOpened: boolean = false;
 
-    openCloseSidebar() {
-        this.stateChanged.emit();
-    }
+    // openCloseSidebar() {
+    //     this.isSidebarOpened = !this.isSidebarOpened;
+    // }
 }

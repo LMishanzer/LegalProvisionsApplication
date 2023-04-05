@@ -15,12 +15,22 @@ export class AddProvisionContentComponent {
     @Input() order: number = 0;
 
     label: string = this.content.title || '';
+    showDropdown: boolean = false;
+    titleVisible: boolean = true;
+    textMainVisible: boolean = true;
 
-    addSection(): void {
+    switchDropdown() {
+        this.showDropdown = !this.showDropdown;
+    }
+
+    addSection(type: string): void {
         this.content.innerItems.push({
             textMain: '',
             title: 'Random',
+            type: type,
             innerItems: []
         });
+        this.content.innerItemsType = type;
+        this.showDropdown = false;
     }
 }
