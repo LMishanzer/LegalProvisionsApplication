@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ContentCreator, LegalProvision} from "../../models/legal-provision-models";
+import {ContentCreator, ProvisionVersion} from "../../models/provision-version-models";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {Guid} from "guid-typescript";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-provision-sidebar',
@@ -11,13 +12,15 @@ import {Guid} from "guid-typescript";
 export class ProvisionSidebarComponent implements OnInit {
     @Input() isSidebarOpened: boolean = false;
 
-    provision: LegalProvision = ContentCreator.getEmptyProvision();
+    provision: ProvisionVersion = ContentCreator.getEmptyProvision();
 
-    constructor(private provisionsApiService: ProvisionsApiService) {
+    constructor(private route: ActivatedRoute,
+                private provisionApi: ProvisionsApiService) {
     }
 
     ngOnInit() {
-        this.provisionsApiService.getOne(Guid.parse('3b73be6c-676f-4794-8805-320a6c91e0c6'))
-            .subscribe(result => this.provision = result);
+        let id = Guid.parse(this.route.snapshot.paramMap.get('id') || '');
+        this.provisionApi.getActualProvision(id).subscribe(result =>
+            this.provision = result);
     }
 }

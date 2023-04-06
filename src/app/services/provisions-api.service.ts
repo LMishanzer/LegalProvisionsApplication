@@ -1,26 +1,52 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {LegalProvision, LegalProvisionFields} from '../models/legal-provision-models';
+import {ProvisionVersion, ProvisionVersionFields} from '../models/provision-version-models';
 import { Guid } from "guid-typescript";
+import {ProvisionHeader, ProvisionHeaderFields} from "../models/provision-header";
+import {ProvisionDifference} from "../models/provision-difference";
 
 @Injectable({
     providedIn: 'root',
 })
 export class ProvisionsApiService {
-    url: string = 'http://localhost:5024/Provisions';
+    url: string = 'http://localhost:5024/provision';
 
     constructor(private httpClient: HttpClient) { }
 
-    getAll(): Observable<LegalProvision[]> {
-        return this.httpClient.get<LegalProvision[]>(`${this.url}/getall`);
+    getAll(): Observable<ProvisionHeader[]> {
+        return this.httpClient.get<ProvisionHeader[]>(`${this.url}/getall`);
     }
 
-    getOne(id: Guid): Observable<LegalProvision> {
-        return this.httpClient.get<LegalProvision>(`${this.url}/getone/${id.toString()}`, {});
+    getActualProvision(headerId: Guid): Observable<ProvisionVersion> {
+        return this.httpClient.get<ProvisionVersion>(`${this.url}/getactualversion/${headerId.toString()}`);
     }
 
-    create(provisionFields: LegalProvisionFields): Observable<Guid> {
+    addProvision(provision: ProvisionHeaderFields): Observable<Guid> {
+        return this.httpClient.post<Guid>(`${this.url}/addprovision`, provision);
+    }
+
+    addProvisionVersion(version: ProvisionVersionFields): Observable<Guid> {
+        return this.httpClient.post<Guid>(`${this.url}/addprovisionversion`, version);
+    }
+
+    getDifferences(originalVersion: Guid, changedVersion: Guid): Observable<ProvisionDifference> {
+        return this.httpClient.get<ProvisionDifference>(
+            `${this.url}/getdifferences/${originalVersion.toString()}/${changedVersion.toString()}`);
+    }
+
+
+
+
+    getAllVersions(): Observable<ProvisionVersion[]> {
+        return this.httpClient.get<ProvisionVersion[]>(`${this.url}/getall`);
+    }
+
+    getOne(id: Guid): Observable<ProvisionVersion> {
+        return this.httpClient.get<ProvisionVersion>(`${this.url}/getone/${id.toString()}`);
+    }
+
+    create(provisionFields: ProvisionVersionFields): Observable<Guid> {
         return this.httpClient.post<Guid>(`${this.url}/create`, provisionFields);
     }
 }

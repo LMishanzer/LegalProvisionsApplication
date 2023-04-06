@@ -25,6 +25,7 @@ import {MatInputModule} from "@angular/material/input";
 import { AddProvisionContentComponent } from './components/add-provision-content/add-provision-content.component';
 import {FormsModule} from "@angular/forms";
 import { FooterComponent } from './components/footer/footer.component';
+import { ProvisionListComponent } from './components/provision-list/provision-list.component';
 
 @NgModule({
     declarations: [
@@ -37,7 +38,8 @@ import { FooterComponent } from './components/footer/footer.component';
         AddProvisionComponent,
         ToolbarComponent,
         AddProvisionContentComponent,
-        FooterComponent
+        FooterComponent,
+        ProvisionListComponent
     ],
     imports: [
         BrowserModule,

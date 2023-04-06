@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ContentItem} from "../../models/legal-provision-models";
+import {ContentCreator, ContentItem} from "../../models/provision-version-models";
 
 @Component({
   selector: 'app-provision-menu-item',
@@ -7,10 +7,6 @@ import {ContentItem} from "../../models/legal-provision-models";
   styleUrls: ['./provision-menu-item.component.css']
 })
 export class ProvisionMenuItemComponent {
-    @Input() contentItem: ContentItem = {
-        title: '',
-        textMain: '',
-        innerItems: []
-    };
+    @Input() contentItem: ContentItem = ContentCreator.getEmptyContent();
     @Input() level: number = 0;
 }

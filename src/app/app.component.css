@@ -5,9 +5,14 @@ div {
 }
 
 app-toolbar {
-  flex: 1 1 auto;
+  height: 50px;
 }
 
-app-provision-sidebar {
-  flex: 30 1 auto;
+router-outlet {
+  margin: 20px;
 }
+
+
+/*app-provision-sidebar {*/
+/*  flex: 30 1 auto;*/
+/*}*/
