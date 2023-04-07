@@ -1,0 +1,13 @@
+mat-card {
+  margin: 0 15px 0 15px;
+  cursor: pointer;
+}
+
+mat-card-title {
+  margin: 10px;
+}
+
+p {
+  color: #B7B7B7;
+  margin: 10px;
+}

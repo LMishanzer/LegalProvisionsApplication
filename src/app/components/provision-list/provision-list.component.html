@@ -1,0 +1,10 @@
+<mat-card *ngFor="let provision of provisionList" routerLink="/provision/{{provision.id}}">
+  <mat-card-title>
+    {{provision.fields.title}}
+  </mat-card-title>
+  <mat-card-content>
+    <p>
+      <span *ngFor="let keyword of provision.fields.keywords; let last = last">{{keyword}}<span *ngIf="!last">, </span></span>
+    </p>
+  </mat-card-content>
+</mat-card>
