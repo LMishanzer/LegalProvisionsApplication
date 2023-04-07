@@ -1,7 +1,9 @@
 <mat-list-item>
-<!--  <span class="section-name">{{contentItem.name}}</span> {{contentItem.title}}-->
+  <span class="section-name">{{type}}</span> {{contentItem.title}}
 </mat-list-item>
 
-<app-provision-menu-item *ngFor="let child of contentItem.innerItems"
-                         [contentItem]="child"
-                         [level]="level + 1"></app-provision-menu-item>
+<mat-list *ngIf="contentItem.innerItemsType != 'Bod'">
+  <app-provision-menu-item *ngFor="let child of contentItem.innerItems"
+                           [contentItem]="child"
+                           [type]="contentItem.innerItemsType"></app-provision-menu-item>
+</mat-list>

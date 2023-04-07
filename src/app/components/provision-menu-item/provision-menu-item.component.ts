@@ -8,5 +8,5 @@ import {ContentCreator, ContentItem} from "../../models/provision-version-models
 })
 export class ProvisionMenuItemComponent {
     @Input() contentItem: ContentItem = ContentCreator.getEmptyContent();
-    @Input() level: number = 0;
+    @Input() type?: string;
 }

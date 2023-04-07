@@ -4,10 +4,15 @@ mat-card {
 }
 
 mat-card-title {
-  margin: 10px;
+  margin-top: 10px;
+  margin-left: 15px;
 }
 
 p {
   color: #B7B7B7;
   margin: 10px;
+}
+
+.list-container {
+  margin-top: 65px;
 }

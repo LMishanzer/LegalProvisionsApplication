@@ -1,6 +1,6 @@
-<div *ngIf="content">
+<div [id]="content.id">
   <h3 *ngIf="content.title">{{content.title}}</h3>
   <p>{{content.textMain}}</p>
 
-  <app-provision-content *ngFor="let innerContent of content.innerItems; let i = index" [content]="innerContent" [order]="i + 1"></app-provision-content>
+  <app-provision-content *ngFor="let innerContent of content.innerItems" [content]="innerContent"></app-provision-content>
 </div>

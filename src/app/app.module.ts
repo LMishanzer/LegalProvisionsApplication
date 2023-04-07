@@ -26,6 +26,8 @@ import { AddProvisionContentComponent } from './components/add-provision-content
 import {FormsModule} from "@angular/forms";
 import { FooterComponent } from './components/footer/footer.component';
 import { ProvisionListComponent } from './components/provision-list/provision-list.component';
+import { VersionsListComponent } from './components/versions-list/versions-list.component';
+import { ProvisionComparisonComponent } from './components/provision-comparison/provision-comparison.component';
 
 @NgModule({
     declarations: [
@@ -39,7 +41,9 @@ import { ProvisionListComponent } from './components/provision-list/provision-li
         ToolbarComponent,
         AddProvisionContentComponent,
         FooterComponent,
-        ProvisionListComponent
+        ProvisionListComponent,
+        VersionsListComponent,
+        ProvisionComparisonComponent
     ],
     imports: [
         BrowserModule,

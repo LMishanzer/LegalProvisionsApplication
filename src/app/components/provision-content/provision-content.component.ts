@@ -9,6 +9,4 @@ import {ContentCreator, ContentItem} from 'src/app/models/provision-version-mode
 export class ProvisionContentComponent {
     @Input() content: ContentItem = ContentCreator.getEmptyContent();
 
-    @Input() order: number = 1;
-
 }

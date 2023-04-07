@@ -1,3 +1,22 @@
+/*mat-list {*/
+/*  padding: 0;*/
+/*}*/
+
 .section-name {
   font-weight: bold;
+}
+
+app-provision-menu-item {
+  margin-left: 5px;
+}
+
+mat-list-item {
+  margin-top: 0;
+  margin-bottom: 0;
+  background-color: red;
+}
+
+mat-list-item:hover {
+  background-color: green;
+  cursor: pointer;
 }

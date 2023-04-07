@@ -22,6 +22,15 @@ export class ProvisionsApiService {
         return this.httpClient.get<ProvisionVersion>(`${this.url}/getactualversion/${headerId.toString()}`);
     }
 
+    getProvisionVersion(headerId: Guid, issueDate: Date): Observable<ProvisionVersion> {
+        return this.httpClient.get<ProvisionVersion>(
+            `${this.url}/getprovisionversion/${headerId.toString()}/${issueDate}`);
+    }
+
+    getProvisionHeader(headerId: Guid): Observable<ProvisionHeader> {
+        return this.httpClient.get<ProvisionHeader>(`${this.url}/getprovisionheader/${headerId.toString()}`);
+    }
+
     addProvision(provision: ProvisionHeaderFields): Observable<Guid> {
         return this.httpClient.post<Guid>(`${this.url}/addprovision`, provision);
     }

@@ -1,7 +1,20 @@
 <div>
-  <app-toolbar [isSidebarOpened]="isSidebarOpened"></app-toolbar>
+<!--  <app-toolbar [isSidebarOpened]="isSidebarOpened"></app-toolbar>-->
+  <header>
+    <mat-toolbar color="primary">
+      <!--  <button mat-button (click)="openCloseSidebar()">-->
+      <!--    <mat-icon>-->
+      <!--      list icon-->
+      <!--    </mat-icon>-->
+      <!--  </button>-->
 
-  <router-outlet></router-outlet>
+      Legal Regulations App
+    </mat-toolbar>
+  </header>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
 
 <!--  <app-provision-sidebar [isSidebarOpened]="isSidebarOpened"></app-provision-sidebar>-->
 </div>

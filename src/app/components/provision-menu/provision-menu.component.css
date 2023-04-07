@@ -1,0 +1,22 @@
+.menu-title span {
+  font-weight: bold;
+}
+
+app-provision-menu-item {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.type-spec {
+  font-weight: bold;
+}
+
+.menu-item:hover {
+  cursor: pointer;
+  background-color: #b6b2b1;
+}
+
+mat-list-item a {
+  text-decoration: none;
+  color: inherit;
+}

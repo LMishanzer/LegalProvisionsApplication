@@ -1,15 +1,20 @@
 div {
-  height: 100%;
-  display: flex;
-  flex-flow: column;
+  /*height: 100%;*/
+  /*display: flex;*/
+  /*flex-flow: column;*/
 }
 
-app-toolbar {
+mat-toolbar {
+  width: 100%;
   height: 50px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }
 
-router-outlet {
-  margin: 20px;
+.main-content {
+  position: relative;
+  margin-top: 50px;
 }
 
 

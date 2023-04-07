@@ -1,0 +1,9 @@
+<div class="version-list-container">
+  <ul class="version-list" *ngIf="provisionHeader">
+    <li *ngFor="let date of provisionHeader.fields.datesOfChange">
+      <a (click)="changeDate(date)" >
+        {{date | date}}
+      </a>
+    </li>
+  </ul>
+</div>

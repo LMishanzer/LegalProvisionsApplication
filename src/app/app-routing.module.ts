@@ -5,7 +5,7 @@ import {ProvisionSidebarComponent} from "./components/provision-sidebar/provisio
 
 const routes: Routes = [
     {path: 'provision-list', component: ProvisionListComponent},
-    {path: 'provision/:id', component: ProvisionSidebarComponent},
+    {path: 'provision/:provisionId', component: ProvisionSidebarComponent},
     {path: '', redirectTo: '/provision-list', pathMatch: 'full'}
 ];
 
