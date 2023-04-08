@@ -1,0 +1,15 @@
+.comparison-container {
+  display: flex;
+  /*height: calc(100vh - 50px);*/
+  width: 100%;
+}
+
+.first-version {
+  flex: 1 0 50%;
+  background-color: #a6a6a6;
+}
+
+.second-version {
+  flex: 1 0 50%;
+  background-color: #757575;
+}

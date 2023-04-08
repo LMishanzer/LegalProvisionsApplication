@@ -1,0 +1,9 @@
+<div class="content-container">
+  <h2 *ngIf="contentItem?.title">{{contentItem?.title}}</h2>
+  <p *ngIf="contentItem?.textMain">{{contentItem?.textMain}}</p>
+
+  <app-comparison-item-new *ngFor="let item of contentItem?.innerItems"
+                           [contentItem]="item"
+                           [addedContent]="addedContent"
+                           [changedContent]="changedContent"></app-comparison-item-new>
+</div>

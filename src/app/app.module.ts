@@ -28,6 +28,8 @@ import { FooterComponent } from './components/footer/footer.component';
 import { ProvisionListComponent } from './components/provision-list/provision-list.component';
 import { VersionsListComponent } from './components/versions-list/versions-list.component';
 import { ProvisionComparisonComponent } from './components/provision-comparison/provision-comparison.component';
+import { ComparisonItemOldComponent } from './components/comparison-item-old/comparison-item-old.component';
+import { ComparisonItemNewComponent } from './components/comparison-item-new/comparison-item-new.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +45,9 @@ import { ProvisionComparisonComponent } from './components/provision-comparison/
         FooterComponent,
         ProvisionListComponent,
         VersionsListComponent,
-        ProvisionComparisonComponent
+        ProvisionComparisonComponent,
+        ComparisonItemOldComponent,
+        ComparisonItemNewComponent
     ],
     imports: [
         BrowserModule,

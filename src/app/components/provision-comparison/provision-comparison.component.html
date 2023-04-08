@@ -1,0 +1,11 @@
+<div class="comparison-container">
+  <div class="first-version">
+    <app-comparison-item-old [contentItem]="firstVersion?.fields?.content"
+                             [removedContent]="difference?.removedContent"></app-comparison-item-old>
+  </div>
+  <div class="second-version">
+    <app-comparison-item-new [contentItem]="secondVersion?.fields?.content"
+                             [addedContent]="difference?.addedContent"
+                             [changedContent]="difference?.changedContent"></app-comparison-item-new>
+  </div>
+</div>
