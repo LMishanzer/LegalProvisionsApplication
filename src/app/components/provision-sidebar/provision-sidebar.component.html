@@ -2,7 +2,7 @@
 
 <mat-sidenav-container hasBackdrop="false">
   <mat-sidenav mode="side" [opened]="isSidebarOpened">
-    <app-provision-menu [provision]="provision"></app-provision-menu>
+    <app-provision-menu [provision]="provisionVersion"></app-provision-menu>
   </mat-sidenav>
   <mat-sidenav-content>
     <button mat-mini-fab color="primary" (click)="isSidebarOpened = !isSidebarOpened">
@@ -14,8 +14,25 @@
       </mat-icon>
     </button>
 
-    <app-legal-provision [provision]="provision"></app-legal-provision>
+    <app-legal-provision [provision]="provisionVersion"></app-legal-provision>
 
-    <app-versions-list (versionChanged)="getProvision($event)"></app-versions-list>
+    <div class="right-sidebar">
+      <div class="fixed-content">
+        <app-versions-list (versionChanged)="getProvision($event)"></app-versions-list>
+
+        <mat-form-field appearance="fill" *ngIf="provision">
+          <mat-label>Compare</mat-label>
+          <mat-select [(value)]="dateOfChange">
+            <mat-option *ngFor="let date of provision.fields.datesOfChange" [value]="date">
+              {{date}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button (click)="openComparisonPage()">
+          Compare version
+        </button>
+      </div>
+    </div>
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -1,6 +1,7 @@
-#form {
-  margin: 50px auto 50px auto;
-  width: 50%;
+#form-container {
+  margin: 0 auto;
+  padding: 10px 0;
+  width: 80%;
   display: block;
 }
 
@@ -8,4 +9,12 @@ button {
   margin: 20px 40px 20px 20px;
   padding: 20px;
   float: right;
+}
+
+.form {
+  margin: 20px;
+}
+
+#keywords-form {
+  width: 100%;
 }

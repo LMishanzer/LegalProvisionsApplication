@@ -1,5 +1,10 @@
-.add-section-button {
+.add-section {
   margin: 20px;
+  z-index: 1;
+}
+
+.add-section button {
+  z-index: 1;
 }
 
 .form {
@@ -7,13 +12,14 @@
 }
 
 mat-form-field {
-  width: 70%;
-  margin: 20px 5% 0 5%;
+  width: 85%;
+  margin-right: 20px;
 }
 
 mat-card {
   /*width: 100%;*/
   margin: 20px 20px 0 20px;
+  padding: 20px 20px 20px 30px;
 }
 
 .dropdown-content {
@@ -21,26 +27,39 @@ mat-card {
   background-color: #f1f1f1;
   min-width: 160px;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  z-index: 1;
+  z-index: 100;
 }
 
-#myDropdown a {
+.dropdown-content a {
   display: block;
   padding: 5px;
   text-decoration: none;
   color: grey;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.dropdown-content a:hover {
+  background-color: #b6b2b1;
 }
 
 h3 {
   margin: 30px 0 0 30px;
 }
 
-.delete-button {
-  height: 30px;
-  width: 30px;
-  padding: 0;
-}
-
 .delete-button mat-icon {
   margin: auto;
+}
+
+.add-section mat-form-field {
+  width: min(20rem, 100%);
+}
+
+/*.drag-item {*/
+/*  display: flex;*/
+/*}*/
+
+.draggable {
+  cursor: all-scroll;
+  margin: 10px 0;
 }

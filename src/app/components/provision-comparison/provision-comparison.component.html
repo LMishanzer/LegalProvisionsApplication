@@ -1,11 +1,35 @@
-<div class="comparison-container">
-  <div class="first-version">
-    <app-comparison-item-old [contentItem]="firstVersion?.fields?.content"
-                             [removedContent]="difference?.removedContent"></app-comparison-item-old>
-  </div>
-  <div class="second-version">
-    <app-comparison-item-new [contentItem]="secondVersion?.fields?.content"
-                             [addedContent]="difference?.addedContent"
-                             [changedContent]="difference?.changedContent"></app-comparison-item-new>
+<div>
+<!--  <div class="dates">-->
+<!--    <div>-->
+<!--      <p>{{firstIssueDate}}</p>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--      <p>{{secondIssueDate}}</p>-->
+<!--    </div>-->
+<!--  </div>-->
+  <div class="comparison-container">
+    <div class="first-version">
+      <div class="date">
+        <h3>{{firstIssueDate | date}}</h3>
+        <mat-divider></mat-divider>
+        <mat-divider vertical="true"></mat-divider>
+      </div>
+      <div class="text-box">
+        <app-comparison-item-old [contentItem]="firstVersion?.fields?.content"
+                                 [removedContent]="difference?.removedContent"></app-comparison-item-old>
+      </div>
+    </div>
+
+    <div class="second-version">
+      <div class="date">
+        <h3>{{secondIssueDate | date}}</h3>
+        <mat-divider></mat-divider>
+      </div>
+      <div class="text-box">
+        <app-comparison-item-new [contentItem]="secondVersion?.fields?.content"
+                                 [addedContent]="difference?.addedContent"
+                                 [changedContent]="difference?.changedContent"></app-comparison-item-new>
+      </div>
+    </div>
   </div>
 </div>

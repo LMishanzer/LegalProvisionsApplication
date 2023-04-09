@@ -1,7 +1,45 @@
-<div id="form">
-  <app-add-provision-content [content]="content"></app-add-provision-content>
+<div id="form-container">
+  <div class="date-picker form">
+    <mat-form-field appearance="fill">
+      <mat-label>Issue date</mat-label>
+      <input matInput [matDatepicker]="pickerIssue" [(ngModel)]="provisionFields.issueDate">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="pickerIssue"></mat-datepicker-toggle>
+      <mat-datepicker #pickerIssue></mat-datepicker>
+    </mat-form-field>
+  </div>
 
-<!--  <button mat-raised-button color="accent" (click)="saveProvision()" >-->
-<!--    Save provision-->
-<!--  </button>-->
+  <div class="date-picker form">
+    <mat-form-field appearance="fill">
+      <mat-label>Valid from</mat-label>
+      <input matInput [matDatepicker]="pickerValid" [(ngModel)]="provisionFields.validFrom">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="pickerValid"></mat-datepicker-toggle>
+      <mat-datepicker #pickerValid></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="date-picker form">
+    <mat-form-field appearance="fill">
+      <mat-label>Takes effect from</mat-label>
+      <input matInput [matDatepicker]="pickerEffect" [(ngModel)]="provisionFields.takesEffectFrom">
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="pickerEffect"></mat-datepicker-toggle>
+      <mat-datepicker #pickerEffect></mat-datepicker>
+    </mat-form-field>
+  </div>
+
+  <div class="form">
+    <mat-form-field id="keywords-form">
+      <mat-label>Keywords</mat-label>
+      <input matInput [(ngModel)]="keywords" >
+    </mat-form-field>
+  </div>
+
+  <app-add-provision-content [content]="provisionFields.content"
+                             [availableTypes]="availableTypes"></app-add-provision-content>
+
+  <button mat-raised-button color="accent" (click)="saveProvision()" >
+    Save provision
+  </button>
 </div>

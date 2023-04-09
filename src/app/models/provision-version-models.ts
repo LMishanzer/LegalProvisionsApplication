@@ -8,13 +8,14 @@ export interface ProvisionVersion extends DataItem {
 export interface ProvisionVersionFields {
     provisionHeader: Guid;
     issueDate: Date;
-    validFrom: Date;
-    takesEffectFrom: Date;
+    validFrom?: Date;
+    takesEffectFrom?: Date;
     content: ContentItem;
 }
 
 export interface ContentItem {
     id: Guid;
+    identifier: string,
     title: string;
     textMain: string;
     innerItemsType?: string;
@@ -34,8 +35,6 @@ export class ContentCreator {
         return {
             provisionHeader: Guid.createEmpty(),
             issueDate: new Date(),
-            validFrom: new Date(),
-            takesEffectFrom: new Date(),
             content: this.getEmptyContent()
         };
     }
@@ -43,6 +42,7 @@ export class ContentCreator {
     static getEmptyContent(): ContentItem {
         return {
             id: Guid.createEmpty(),
+            identifier: '',
             title: '',
             textMain: '',
             innerItems: []

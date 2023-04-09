@@ -1,15 +1,28 @@
 .comparison-container {
-  display: flex;
+  /*display: flex;*/
   /*height: calc(100vh - 50px);*/
   width: 100%;
 }
 
 .first-version {
-  flex: 1 0 50%;
-  background-color: #a6a6a6;
+  float: left;
+  width: 50%;
+  /*flex: 0 0 50%;*/
+  /*background-color: #a6a6a6;*/
 }
 
 .second-version {
-  flex: 1 0 50%;
-  background-color: #757575;
+  float: right;
+  width: 50%;
+  /*width: 45%;*/
+  /*flex: 0 0 50%;*/
+  /*background-color: #757575;*/
+}
+
+.text-box {
+  border: 1px  solid black;
+}
+
+.date {
+  margin-bottom: 20px;
 }

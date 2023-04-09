@@ -7,5 +7,5 @@ export interface ProvisionHeader extends DataItem {
 export interface ProvisionHeaderFields {
     title: string;
     keywords: string[];
-    datesOfChange: Date[];
+    datesOfChange?: Date[];
 }

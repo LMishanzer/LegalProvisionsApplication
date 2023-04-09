@@ -1,8 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Guid} from "guid-typescript";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {ProvisionVersion} from "../../models/provision-version-models";
 import {ProvisionDifference} from "../../models/provision-difference";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-provision-comparison',
@@ -10,9 +11,9 @@ import {ProvisionDifference} from "../../models/provision-difference";
   styleUrls: ['./provision-comparison.component.css']
 })
 export class ProvisionComparisonComponent implements OnInit {
-    @Input() provisionId: Guid = Guid.createEmpty();
-    @Input() firstIssueDate: Date = new Date();
-    @Input() secondIssueDate: Date = new Date();
+    provisionId: Guid = Guid.createEmpty();
+    firstIssueDate: Date = new Date();
+    secondIssueDate: Date = new Date();
 
     removedContent: Guid[] = [];
 
@@ -21,12 +22,21 @@ export class ProvisionComparisonComponent implements OnInit {
 
     difference?: ProvisionDifference;
 
-    constructor(private provisionApi: ProvisionsApiService) {
+    constructor(private provisionApi: ProvisionsApiService,
+                private route: ActivatedRoute) {
     }
 
     ngOnInit(): void {
+        this.getDataFromUrl();
+
         this.getVersions();
         this.getDifference();
+    }
+
+    getDataFromUrl(): void {
+        this.provisionId = Guid.parse(this.route.snapshot.paramMap.get('provisionId') || '');
+        this.firstIssueDate = new Date(this.route.snapshot.paramMap.get('date1') || '');
+        this.secondIssueDate = new Date(this.route.snapshot.paramMap.get('date2') || '');
     }
 
     getVersions() {

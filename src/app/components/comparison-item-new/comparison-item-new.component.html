@@ -1,4 +1,4 @@
-<div class="content-container">
+<div class="content-container"   [ngClass]="{'added': isAdded, 'changed': isChanged}">
   <h2 *ngIf="contentItem?.title">{{contentItem?.title}}</h2>
   <p *ngIf="contentItem?.textMain">{{contentItem?.textMain}}</p>
 

@@ -30,6 +30,10 @@ import { VersionsListComponent } from './components/versions-list/versions-list.
 import { ProvisionComparisonComponent } from './components/provision-comparison/provision-comparison.component';
 import { ComparisonItemOldComponent } from './components/comparison-item-old/comparison-item-old.component';
 import { ComparisonItemNewComponent } from './components/comparison-item-new/comparison-item-new.component';
+import {MatSelectModule} from "@angular/material/select";
+import {CdkDrag, CdkDragHandle, CdkDropList} from "@angular/cdk/drag-drop";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {MatNativeDateModule} from "@angular/material/core";
 
 @NgModule({
     declarations: [
@@ -64,7 +68,13 @@ import { ComparisonItemNewComponent } from './components/comparison-item-new/com
         MatCardModule,
         MatInputModule,
         FormsModule,
-        MatSnackBarModule
+        MatSnackBarModule,
+        MatSelectModule,
+        CdkDropList,
+        CdkDrag,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        CdkDragHandle,
     ],
     providers: [],
     bootstrap: [AppComponent]

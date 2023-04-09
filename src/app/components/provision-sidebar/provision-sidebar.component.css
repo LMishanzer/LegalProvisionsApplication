@@ -14,16 +14,6 @@ mat-sidenav {
   text-align: left;
 }
 
-/*.content {*/
-/*  height: calc(100vh - 98px);*/
-/*  border-radius: 10px;*/
-/*  margin: 16px 16px 16px 32px;*/
-
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  padding: 30px;*/
-/*}*/
-
 .item {
   color: white;
 }
@@ -41,6 +31,7 @@ mat-sidenav-content {
   display: flex;
   padding-left: 10px;
   padding-bottom: 15px;
+  /*height: 100%;*/
 }
 
 mat-sidenav {
@@ -55,9 +46,6 @@ button {
   margin-left: 10px;
   position: fixed;
   z-index: 5;
-/*  width: 15px;*/
-/*  padding-left: 0;*/
-/*  padding-right: 0;*/
 }
 
 app-legal-provision {
@@ -65,3 +53,19 @@ app-legal-provision {
   width: 100%;
 }
 
+.right-sidebar {
+  width: 13rem;
+  padding-right: 40px;
+}
+
+.fixed-content {
+  position: fixed;
+}
+
+mat-form-field {
+  display: block;
+}
+
+/*.right-sidebar button {*/
+/*  display: block;*/
+/*}*/
