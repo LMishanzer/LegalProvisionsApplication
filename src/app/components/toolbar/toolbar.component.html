@@ -1,11 +1,16 @@
 <header>
   <mat-toolbar color="primary">
-  <!--  <button mat-button (click)="openCloseSidebar()">-->
-  <!--    <mat-icon>-->
-  <!--      list icon-->
-  <!--    </mat-icon>-->
-  <!--  </button>-->
+    <mat-toolbar-row>
+      <a mat-button class="app-name" routerLink="/provision-list">
+        <h1>Právní předpisy</h1>
+      </a>
 
-    Legal Regulations App
+      <span class="menu-spacer"></span>
+
+      <nav>
+        <a mat-button routerLink="/provision-list">Seznam předpisů</a>
+        <a mat-button routerLink="/add-provision">Přidat předpis</a>
+      </nav>
+    </mat-toolbar-row>
   </mat-toolbar>
 </header>

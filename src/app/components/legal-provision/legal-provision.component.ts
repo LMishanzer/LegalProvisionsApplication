@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ContentCreator, ProvisionVersion} from 'src/app/models/provision-version-models';
+import {ProvisionCreator, ProvisionVersion} from 'src/app/models/provision-version-models';
 
 @Component({
   selector: 'app-legal-provision',
@@ -7,5 +7,5 @@ import {ContentCreator, ProvisionVersion} from 'src/app/models/provision-version
   styleUrls: ['./legal-provision.component.css']
 })
 export class LegalProvisionComponent {
-    @Input() provision: ProvisionVersion = ContentCreator.getEmptyProvision();
+    @Input() provision: ProvisionVersion = ProvisionCreator.getEmptyProvision();
 }

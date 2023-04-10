@@ -10,7 +10,9 @@ const routes: Routes = [
     {path: 'provision/:provisionId', component: ProvisionSidebarComponent},
     {path: '', redirectTo: '/provision-list', pathMatch: 'full'},
     {path: 'comparison/:provisionId/:date1/:date2', component: ProvisionComparisonComponent},
-    {path: 'add-provision', component: AddProvisionComponent}
+    {path: 'add-provision', component: AddProvisionComponent},
+    {path: 'add-provision-version/:provisionId', component: AddProvisionComponent},
+    {path: 'update-provision-version/:provisionVersionId', component: AddProvisionComponent},
 ];
 
 @NgModule({

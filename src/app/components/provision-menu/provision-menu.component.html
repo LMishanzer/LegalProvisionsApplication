@@ -4,7 +4,7 @@
   </mat-list-item>
 
   <mat-list-item class="menu-item" *ngFor="let item of provision.fields.content.innerItems">
-    <a [href]="'#' + item.id.toString()">
+    <a [href]="'#' + item.id?.toString()">
       <span class="type-spec">{{provision.fields.content.innerItemsType}}</span> {{item.title}}
     </a>
 <!--    <mat-expansion-panel>-->

@@ -14,7 +14,7 @@ export interface ProvisionVersionFields {
 }
 
 export interface ContentItem {
-    id: Guid;
+    id?: Guid;
     identifier: string,
     title: string;
     textMain: string;
@@ -22,7 +22,7 @@ export interface ContentItem {
     innerItems: ContentItem[];
 }
 
-export class ContentCreator {
+export class ProvisionCreator {
     static getEmptyProvision(): ProvisionVersion {
         return {
             id: Guid.createEmpty(),
@@ -34,14 +34,13 @@ export class ContentCreator {
     static getEmptyFields(): ProvisionVersionFields {
         return {
             provisionHeader: Guid.createEmpty(),
-            issueDate: new Date(),
+            issueDate: new Date(0),
             content: this.getEmptyContent()
         };
     }
 
     static getEmptyContent(): ContentItem {
         return {
-            id: Guid.createEmpty(),
             identifier: '',
             title: '',
             textMain: '',

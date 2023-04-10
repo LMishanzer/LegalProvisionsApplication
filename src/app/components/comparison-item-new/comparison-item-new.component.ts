@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {ContentCreator, ContentItem} from "../../models/provision-version-models";
+import {ProvisionCreator, ContentItem} from "../../models/provision-version-models";
 import {Guid} from "guid-typescript";
 
 @Component({
@@ -8,7 +8,7 @@ import {Guid} from "guid-typescript";
   styleUrls: ['./comparison-item-new.component.css']
 })
 export class ComparisonItemNewComponent implements OnInit, OnChanges {
-    @Input() contentItem?: ContentItem = ContentCreator.getEmptyContent();
+    @Input() contentItem?: ContentItem = ProvisionCreator.getEmptyContent();
     @Input() addedContent?: Guid[] = [];
     @Input() changedContent?: Guid[] = [];
 

@@ -1,6 +1,8 @@
-<div class="content-container"   [ngClass]="{'added': isAdded, 'changed': isChanged}">
-  <h2 *ngIf="contentItem?.title">{{contentItem?.title}}</h2>
-  <p *ngIf="contentItem?.textMain">{{contentItem?.textMain}}</p>
+<div class="content-container" [ngClass]="{'added': isAdded}">
+  <div [ngClass]="{'changed': isChanged}">
+    <h2 *ngIf="contentItem?.title">{{contentItem?.title}}</h2>
+    <p *ngIf="contentItem?.textMain">{{contentItem?.textMain}}</p>
+  </div>
 
   <app-comparison-item-new *ngFor="let item of contentItem?.innerItems"
                            [contentItem]="item"

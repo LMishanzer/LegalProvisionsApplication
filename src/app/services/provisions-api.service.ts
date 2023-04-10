@@ -28,6 +28,11 @@ export class ProvisionsApiService {
             `${this.url}/getprovisionversion/${headerId.toString()}/${issueDate.toISOString()}`);
     }
 
+    getProvisionVersionById(versionId: Guid): Observable<ProvisionVersion> {
+        return this.httpClient.get<ProvisionVersion>(
+            `${this.url}/getprovisionversion/${versionId.toString()}`);
+    }
+
     getProvisionHeader(headerId: Guid): Observable<ProvisionHeader> {
         return this.httpClient.get<ProvisionHeader>(`${this.url}/getprovisionheader/${headerId.toString()}`);
     }
@@ -37,18 +42,29 @@ export class ProvisionsApiService {
     }
 
     addProvisionVersion(version: ProvisionVersionFields): Observable<Guid> {
-        return this.httpClient.post<Guid>(`${this.url}/addprovisionversion`, version);
-    }
+        let body: any = JSON.parse(JSON.stringify(version));
+        body.issueDate = this.getDateOnly(version.issueDate);
+        body.validFrom = this.getDateOnly(version.validFrom);
+        body.takesEffectFrom = this.getDateOnly(version.takesEffectFrom);
 
-    // getDifferences(originalVersion: Guid, changedVersion: Guid): Observable<ProvisionDifference> {
-    //     return this.httpClient.get<ProvisionDifference>(
-    //         `${this.url}/getdifferences/${originalVersion.toString()}/${changedVersion.toString()}`);
-    // }
+        return this.httpClient.post<Guid>(`${this.url}/addprovisionversion`, body);
+    }
 
     getDifferences(differenceRequest: DifferenceRequest): Observable<ProvisionDifference> {
         return this.httpClient.post<ProvisionDifference>(`${this.url}/getdifferences`, differenceRequest);
     }
 
+    updateVersion(versionId: Guid, versionFields: ProvisionVersionFields): Observable<any> {
+        return this.httpClient.put(`${this.url}/updateversion/${versionId}`, versionFields);
+    }
+
+    deleteProvision(headerId: Guid): Observable<any> {
+        return this.httpClient.delete(`${this.url}/deleteprovision/${headerId.toString()}`);
+    }
+
+    deleteProvisionVersion(versionId: Guid): Observable<any> {
+        return this.httpClient.delete(`${this.url}/deleteprovisionversion/${versionId}`);
+    }
 
 
 
@@ -62,5 +78,21 @@ export class ProvisionsApiService {
 
     create(provisionFields: ProvisionVersionFields): Observable<Guid> {
         return this.httpClient.post<Guid>(`${this.url}/create`, provisionFields);
+    }
+
+    private getDateOnly(date?: Date): string | null {
+        if (!date)
+            return null;
+
+        let formattedMonth = (date.getMonth() + 1).toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        });
+        let formattedDay = date.getDate().toLocaleString('en-US', {
+            minimumIntegerDigits: 2,
+            useGrouping: false
+        });
+
+        return `${date.getFullYear()}-${formattedMonth}-${formattedDay}`;
     }
 }

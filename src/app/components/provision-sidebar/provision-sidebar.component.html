@@ -1,5 +1,3 @@
-<!--<app-toolbar (stateChanged)="isSidebarOpened = !isSidebarOpened"></app-toolbar>-->
-
 <mat-sidenav-container hasBackdrop="false">
   <mat-sidenav mode="side" [opened]="isSidebarOpened">
     <app-provision-menu [provision]="provisionVersion"></app-provision-menu>
@@ -18,7 +16,7 @@
 
     <div class="right-sidebar">
       <div class="fixed-content">
-        <app-versions-list (versionChanged)="getProvision($event)"></app-versions-list>
+        <app-versions-list [provisionHeader]="provision" (versionChanged)="getProvision($event)"></app-versions-list>
 
         <mat-form-field appearance="fill" *ngIf="provision">
           <mat-label>Compare</mat-label>
@@ -29,8 +27,22 @@
           </mat-select>
         </mat-form-field>
 
-        <button mat-raised-button (click)="openComparisonPage()">
+        <button mat-raised-button (click)="openComparisonPage()" color="primary">
           Compare version
+        </button>
+
+        <button class="edit-button"
+                mat-raised-button
+                routerLink="/update-provision-version/{{provisionVersion.id}}"
+                color="accent">
+          Edit version
+        </button>
+
+        <button class="delete-button"
+                mat-raised-button
+                color="warn"
+                (click)="deleteVersion(provisionVersion)">
+          Delete version
         </button>
       </div>
     </div>

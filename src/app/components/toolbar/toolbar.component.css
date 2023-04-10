@@ -1,3 +1,35 @@
+/*span {*/
+/*  margin-right: 4rem;*/
+/*}*/
+
+/*a {*/
+/*  text-decoration: none;*/
+/*  color: #f1f1f1;*/
+/*  font-weight: normal;*/
+/*  height: 100%;*/
+/*  !*margin: 10px 20px;*!*/
+/*}*/
+
+.app-name {
+  padding-top: 12px;
+}
+
+.menu-spacer {
+  width: 5rem;
+}
+
+nav, nav a {
+  height: 100%;
+}
+
+nav a {
+  padding: 0 20px;
+}
+
 mat-toolbar {
-  /*height: 100%;*/
+  width: 100%;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }

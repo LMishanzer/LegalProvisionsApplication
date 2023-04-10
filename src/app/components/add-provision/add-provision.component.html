@@ -2,7 +2,9 @@
   <div class="date-picker form">
     <mat-form-field appearance="fill">
       <mat-label>Issue date</mat-label>
-      <input matInput [matDatepicker]="pickerIssue" [(ngModel)]="provisionFields.issueDate">
+      <input matInput [matDatepicker]="pickerIssue"
+             [(ngModel)]="issueDate" required
+             (dateChange)="issueDate = correctDate(issueDate)">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="pickerIssue"></mat-datepicker-toggle>
       <mat-datepicker #pickerIssue></mat-datepicker>
@@ -12,7 +14,9 @@
   <div class="date-picker form">
     <mat-form-field appearance="fill">
       <mat-label>Valid from</mat-label>
-      <input matInput [matDatepicker]="pickerValid" [(ngModel)]="provisionFields.validFrom">
+      <input matInput [matDatepicker]="pickerValid"
+             [(ngModel)]="provisionFields.validFrom"
+             (dateChange)="provisionFields.validFrom = correctDate(provisionFields.validFrom)">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="pickerValid"></mat-datepicker-toggle>
       <mat-datepicker #pickerValid></mat-datepicker>
@@ -22,7 +26,9 @@
   <div class="date-picker form">
     <mat-form-field appearance="fill">
       <mat-label>Takes effect from</mat-label>
-      <input matInput [matDatepicker]="pickerEffect" [(ngModel)]="provisionFields.takesEffectFrom">
+      <input matInput [matDatepicker]="pickerEffect"
+             [(ngModel)]="provisionFields.takesEffectFrom"
+             (dateChange)="provisionFields.takesEffectFrom = correctDate(provisionFields.takesEffectFrom)">
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="pickerEffect"></mat-datepicker-toggle>
       <mat-datepicker #pickerEffect></mat-datepicker>

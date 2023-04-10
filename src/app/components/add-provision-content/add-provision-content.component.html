@@ -1,6 +1,10 @@
 <mat-card cdkDrag [cdkDragDisabled]="!type">
   <div *ngIf="type">
     <mat-icon cdkDragHandle class="draggable">drag_indicator</mat-icon>
+
+    <button mat-icon-button class="close-button" color="warn" (click)="removeElement()">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
 
   <h2>{{type}} {{content.identifier}}</h2>
@@ -9,22 +13,22 @@
       <mat-label>Identifier</mat-label>
       <input matInput [(ngModel)]="content.identifier" >
     </mat-form-field>
-    <button class="delete-button" mat-mini-fab color="warn" (click)="identifierVisible = false; content.identifier = ''" >
-      <mat-icon>
-        delete
-      </mat-icon>
-    </button>
+<!--    <button class="delete-button" mat-icon-button color="warn" (click)="identifierVisible = false; content.identifier = ''" >-->
+<!--      <mat-icon>-->
+<!--        delete-->
+<!--      </mat-icon>-->
+<!--    </button>-->
   </div>
   <div class="form" *ngIf="titleVisible">
     <mat-form-field>
       <mat-label>Section title</mat-label>
       <input matInput [(ngModel)]="content.title" >
     </mat-form-field>
-    <button class="delete-button" mat-mini-fab color="warn" (click)="titleVisible = false; content.title = ''" >
-      <mat-icon>
-        delete
-      </mat-icon>
-    </button>
+<!--    <button class="delete-button" mat-icon-button color="warn" (click)="titleVisible = false; content.title = ''" >-->
+<!--      <mat-icon>-->
+<!--        delete-->
+<!--      </mat-icon>-->
+<!--    </button>-->
   </div>
   <div class="form" *ngIf="textMainVisible">
     <mat-form-field>
@@ -32,24 +36,25 @@
       <textarea matInput [(ngModel)]="content.textMain"
                 (ngModelChange)="content.textMain = removeNewLines(content.textMain)" ></textarea>
     </mat-form-field>
-    <button class="delete-button" mat-mini-fab color="warn" (click)="textMainVisible = false; content.textMain = ''" >
-      <mat-icon>
-        delete
-      </mat-icon>
-    </button>
+<!--    <button class="delete-button" mat-icon-button color="warn" (click)="textMainVisible = false; content.textMain = ''" >-->
+<!--      <mat-icon>-->
+<!--        delete-->
+<!--      </mat-icon>-->
+<!--    </button>-->
   </div>
 
   <div cdkDropList class="items-list" (cdkDropListDropped)="drop($event)" *ngIf="content.innerItems">
     <app-add-provision-content [content]="item"
                                [type]="content.innerItemsType"
                                [availableTypes]="availableTypesForChildren"
-                               *ngFor="let item of content.innerItems"></app-add-provision-content>
+                               (remove)="childRemoved(i)"
+                               *ngFor="let item of content.innerItems; let i = index"></app-add-provision-content>
   </div>
 
   <div class="add-section" *ngIf="availableTypes.length > 0">
     <mat-form-field appearance="fill"
                     *ngIf="!content.innerItemsType">
-      <mat-label>Add section</mat-label>
+      <mat-label>Přidat sekci</mat-label>
       <mat-select [(ngModel)]="content.innerItemsType"
                   (ngModelChange)="addSection()">
         <mat-option *ngFor="let sectionType of availableTypes" [value]="sectionType">

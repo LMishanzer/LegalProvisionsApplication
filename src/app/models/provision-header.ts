@@ -9,3 +9,12 @@ export interface ProvisionHeaderFields {
     keywords: string[];
     datesOfChange?: Date[];
 }
+
+export class ProvisionHeaderCreator {
+    static getEmptyHeaderFields(): ProvisionHeaderFields {
+        return {
+            title: '',
+            keywords: []
+        }
+    }
+}

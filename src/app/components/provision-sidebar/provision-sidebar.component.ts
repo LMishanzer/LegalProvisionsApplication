@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ContentCreator, ProvisionVersion} from "../../models/provision-version-models";
+import {Component, OnInit} from '@angular/core';
+import {ProvisionCreator, ProvisionVersion} from "../../models/provision-version-models";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {Guid} from "guid-typescript";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -11,10 +11,10 @@ import {ProvisionHeader} from "../../models/provision-header";
   styleUrls: ['./provision-sidebar.component.css']
 })
 export class ProvisionSidebarComponent implements OnInit {
-    @Input() isSidebarOpened: boolean = false;
+    isSidebarOpened: boolean = false;
 
     provision?: ProvisionHeader;
-    provisionVersion: ProvisionVersion = ContentCreator.getEmptyProvision();
+    provisionVersion: ProvisionVersion = ProvisionCreator.getEmptyProvision();
 
     dateOfChange: Date = new Date(0);
 
@@ -60,6 +60,12 @@ export class ProvisionSidebarComponent implements OnInit {
 
         this.router.navigateByUrl(
             `/comparison/${this.provisionVersion.fields.provisionHeader}/${date1}/${date2}`);
+    }
+
+    deleteVersion(version: ProvisionVersion) {
+        this.provisionApi.deleteProvisionVersion(version.id).subscribe(_ => {
+           this.getProvision();
+        });
     }
 
     private sortDates(date1: Date, date2: Date): Date[] {

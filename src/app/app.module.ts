@@ -34,6 +34,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {CdkDrag, CdkDragHandle, CdkDropList} from "@angular/cdk/drag-drop";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import {MatDialogModule} from "@angular/material/dialog";
 
 @NgModule({
     declarations: [
@@ -51,7 +53,8 @@ import {MatNativeDateModule} from "@angular/material/core";
         VersionsListComponent,
         ProvisionComparisonComponent,
         ComparisonItemOldComponent,
-        ComparisonItemNewComponent
+        ComparisonItemNewComponent,
+        ConfirmationDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -75,6 +78,7 @@ import {MatNativeDateModule} from "@angular/material/core";
         MatDatepickerModule,
         MatNativeDateModule,
         CdkDragHandle,
+        MatDialogModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {ProvisionHeader} from "../../models/provision-header";
 import {Guid} from "guid-typescript";
@@ -11,7 +11,7 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class VersionsListComponent implements OnInit {
 
-    provisionHeader?: ProvisionHeader;
+    @Input() provisionHeader?: ProvisionHeader;
     @Output() versionChanged = new EventEmitter<Date>();
 
     constructor(private provisionApi: ProvisionsApiService,
@@ -23,6 +23,9 @@ export class VersionsListComponent implements OnInit {
     }
 
     getDates() {
+        if (this.provisionHeader)
+            return;
+
         let id = Guid.parse(this.route.snapshot.paramMap.get('provisionId') || '');
 
         this.provisionApi.getProvisionHeader(id).subscribe(result =>

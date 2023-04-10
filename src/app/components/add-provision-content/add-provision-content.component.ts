@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
-import {ContentCreator, ContentItem} from "../../models/provision-version-models";
-import {Guid} from "guid-typescript";
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ProvisionCreator, ContentItem} from "../../models/provision-version-models";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 
 @Component({
@@ -9,9 +8,11 @@ import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
   styleUrls: ['./add-provision-content.component.css']
 })
 export class AddProvisionContentComponent {
-    @Input() content: ContentItem = ContentCreator.getEmptyContent();
+    @Input() content: ContentItem = ProvisionCreator.getEmptyContent();
     @Input() type?: string = '';
     @Input() availableTypes: string[] = [];
+
+    @Output() remove = new EventEmitter<void>();
 
     label: string = this.content.title || '';
     identifierVisible: boolean = true;
@@ -27,7 +28,6 @@ export class AddProvisionContentComponent {
         }
 
         this.content.innerItems.push({
-            id: Guid.createEmpty(),
             identifier: '',
             textMain: '',
             title: '',
@@ -41,5 +41,15 @@ export class AddProvisionContentComponent {
 
     removeNewLines(text: string): string {
         return text.replace('\n', '');
+    }
+
+    removeElement() {
+        this.remove.emit();
+    }
+
+    childRemoved(childIndex: number) {
+        if (childIndex > -1) {
+            this.content.innerItems.splice(childIndex, 1);
+        }
     }
 }

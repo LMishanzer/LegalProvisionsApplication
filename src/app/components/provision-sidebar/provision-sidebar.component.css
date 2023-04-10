@@ -44,8 +44,9 @@ mat-sidenav {
 
 button {
   margin-left: 10px;
-  position: fixed;
+  /*position: fixed;*/
   z-index: 5;
+  display: block;
 }
 
 app-legal-provision {
@@ -66,6 +67,10 @@ mat-form-field {
   display: block;
 }
 
-/*.right-sidebar button {*/
-/*  display: block;*/
-/*}*/
+.edit-button {
+  margin-top: 3rem;
+}
+
+.delete-button {
+  margin-top: 1rem;
+}

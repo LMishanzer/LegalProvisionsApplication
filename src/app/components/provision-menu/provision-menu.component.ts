@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ContentCreator, ProvisionVersion} from "../../models/provision-version-models";
+import {ProvisionCreator, ProvisionVersion} from "../../models/provision-version-models";
 
 @Component({
   selector: 'app-provision-menu',
@@ -7,5 +7,5 @@ import {ContentCreator, ProvisionVersion} from "../../models/provision-version-m
   styleUrls: ['./provision-menu.component.css']
 })
 export class ProvisionMenuComponent {
-    @Input() provision: ProvisionVersion = ContentCreator.getEmptyProvision();
+    @Input() provision: ProvisionVersion = ProvisionCreator.getEmptyProvision();
 }

@@ -1,6 +1,7 @@
 mat-card {
   margin: 15px;
   cursor: pointer;
+  display: flex;
 }
 
 mat-card-title {
@@ -15,4 +16,18 @@ p {
 
 .list-container {
   margin-top: 65px;
+}
+
+.main-container {
+  display: flex;
+}
+
+.content {
+  flex: 1 1 auto;
+}
+
+.manipulation-buttons {
+  flex: 0 1 110px;
+  margin-top: auto;
+  margin-bottom: auto;
 }
