@@ -2,5 +2,12 @@
   <h3 *ngIf="content.title">{{content.title}}</h3>
   <p>{{content.textMain}}</p>
 
+  <div>
+    <button mat-button *ngFor="let reference of content.references"
+            (click)="goToProvision(reference.provisionId)">
+      {{reference.provisionId.toString()}}
+    </button>
+  </div>
+
   <app-provision-content *ngFor="let innerContent of content.innerItems" [content]="innerContent"></app-provision-content>
 </div>

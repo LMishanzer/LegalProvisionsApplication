@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProvisionCreator, ProvisionVersion, ProvisionVersionFields} from "../../models/provision-version-models";
+import {ProvisionCreator, ProvisionVersion, ProvisionVersionFields} from "../../models/provision-version";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ProvisionHeader} from "../../models/provision-header";
@@ -19,7 +19,9 @@ export class AddProvisionComponent implements OnInit {
     editMode: EditModeEnum = EditModeEnum.Create;
     keywords: string = '';
     issueDate?: Date;
-    availableTypes: string[] = ['Část', 'Článek', 'Odstavec'];
+    availableTypes: string[] = ['Část', 'Článek', 'Bod'];
+    issuers: string[] = ['MŠMT', 'ČVUT', 'FIT'];
+    issuer: string = this.issuers[0];
 
     constructor(private provisionsApi: ProvisionsApiService,
                 private snackBar: MatSnackBar,
@@ -58,6 +60,7 @@ export class AddProvisionComponent implements OnInit {
     private createNewProvision(): void {
         let provisionHeaderFields = {
             title: this.provisionFields.content.title,
+            issuer: this.issuer,
             keywords: this.keywords.split(', ')
         };
 
@@ -71,7 +74,9 @@ export class AddProvisionComponent implements OnInit {
         this.provisionsApi.addProvision(provisionHeaderFields).subscribe(headerId => {
             this.provisionFields.provisionHeader = headerId;
             this.provisionsApi.addProvisionVersion(this.provisionFields).subscribe(_ => {
-                this.snackBar.open('Provision was successfully saved', 'Close');
+                this.snackBar.open('Provision was successfully saved', 'Close', {
+                    duration: 3000
+                });
             });
         });
     }
@@ -90,11 +95,12 @@ export class AddProvisionComponent implements OnInit {
         this.provisionFields.issueDate = this.issueDate;
 
         this.provisionsApi.addProvisionVersion(this.provisionFields).subscribe(_ => {
-            this.snackBar.open('Provision was successfully saved', 'Close');
+            this.snackBar.open('Provision was successfully saved', 'Close', {
+                duration: 3000
+            });
         });
 
         this.provisionHeader.fields.keywords = this.keywords.split(', ');
-        // this.provisionsApi.
     }
 
     private updateVersion(): void {
@@ -110,7 +116,9 @@ export class AddProvisionComponent implements OnInit {
 
         this.provisionsApi.updateVersion(this.provisionVersion.id, this.provisionFields)
             .subscribe(_ =>
-                this.snackBar.open('New provision version was successfully saved', 'Close'));
+                this.snackBar.open('New provision version was successfully saved', 'Close', {
+                    duration: 3000
+                }));
     }
 
     private getProvisionHeader(provisionId: Guid): void {

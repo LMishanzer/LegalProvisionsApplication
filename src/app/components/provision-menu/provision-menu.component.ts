@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {ProvisionCreator, ProvisionVersion} from "../../models/provision-version-models";
+import {ProvisionCreator, ProvisionVersion} from "../../models/provision-version";
 
 @Component({
   selector: 'app-provision-menu',

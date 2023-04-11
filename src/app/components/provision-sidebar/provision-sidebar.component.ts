@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ProvisionCreator, ProvisionVersion} from "../../models/provision-version-models";
+import {ProvisionCreator, ProvisionVersion} from "../../models/provision-version";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {Guid} from "guid-typescript";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -24,13 +24,15 @@ export class ProvisionSidebarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getProvision();
-
-        // this.router.events.subscribe(val => this.getProvision())
+        this.route.params.subscribe(params => {
+            let id = params['provisionId'];
+            console.log("URL id has changed");
+            this.getProvision(undefined, id);
+        })
     }
 
-    getProvision(date?: Date) {
-        let id = Guid.parse(this.route.snapshot.paramMap.get('provisionId') || '');
+    getProvision(date?: Date, id?: Guid) {
+        id = id || Guid.parse(this.route.snapshot.paramMap.get('provisionId') || '');
 
         this.provisionApi.getProvisionHeader(id).subscribe(result =>
             this.provision = result

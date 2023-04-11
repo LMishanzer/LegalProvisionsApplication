@@ -1,5 +1,5 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {ProvisionCreator, ContentItem} from "../../models/provision-version-models";
+import {ProvisionCreator, ContentItem} from "../../models/provision-version";
 import {Guid} from "guid-typescript";
 
 @Component({

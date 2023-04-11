@@ -36,6 +36,17 @@
   </div>
 
   <div class="form">
+    <mat-form-field id="issuer">
+      <mat-label>Vydavatel</mat-label>
+      <mat-select [(ngModel)]="issuer" required>
+        <mat-option *ngFor="let currentIssuer of issuers" [value]="currentIssuer">
+          {{currentIssuer}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form">
     <mat-form-field id="keywords-form">
       <mat-label>Keywords</mat-label>
       <input matInput [(ngModel)]="keywords" >
@@ -46,6 +57,6 @@
                              [availableTypes]="availableTypes"></app-add-provision-content>
 
   <button mat-raised-button color="accent" (click)="saveProvision()" >
-    Save provision
+    Uložit předpis
   </button>
 </div>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import {ProvisionVersion, ProvisionVersionFields} from '../models/provision-version-models';
+import {ProvisionVersion, ProvisionVersionFields} from '../models/provision-version';
 import { Guid } from "guid-typescript";
 import {ProvisionHeader, ProvisionHeaderFields} from "../models/provision-header";
 import {ProvisionDifference} from "../models/provision-difference";

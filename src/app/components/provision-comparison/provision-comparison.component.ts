@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Guid} from "guid-typescript";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
-import {ProvisionVersion} from "../../models/provision-version-models";
+import {ProvisionVersion} from "../../models/provision-version";
 import {ProvisionDifference} from "../../models/provision-difference";
 import {ActivatedRoute} from "@angular/router";
 

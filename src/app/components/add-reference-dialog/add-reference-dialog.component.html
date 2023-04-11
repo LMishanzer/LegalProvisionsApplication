@@ -1,0 +1,16 @@
+<h1 mat-dialog-title>Hi user</h1>
+<div mat-dialog-content>
+  <div *ngFor="let reference of references; let i = index">
+    <mat-form-field appearance="fill">
+      <mat-label>Provision ID</mat-label>
+      <input matInput [(ngModel)]="references[i]">
+    </mat-form-field>
+  </div>
+  <button mat-raised-button (click)="addReference()">
+    Add reference
+  </button>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="saveAndClose()" cdkFocusInitial>Save & close</button>
+  <button mat-button (click)="exit()">Exit</button>
+</div>

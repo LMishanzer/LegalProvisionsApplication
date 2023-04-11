@@ -43,6 +43,15 @@
 <!--    </button>-->
   </div>
 
+  <div>
+    <h4>Odkazy</h4>
+    <button mat-icon-button color="primary" (click)="addReference()">
+      <mat-icon>
+        add
+      </mat-icon>
+    </button>
+  </div>
+
   <div cdkDropList class="items-list" (cdkDropListDropped)="drop($event)" *ngIf="content.innerItems">
     <app-add-provision-content [content]="item"
                                [type]="content.innerItemsType"

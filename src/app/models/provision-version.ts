@@ -1,5 +1,6 @@
 import { Guid } from "guid-typescript";
 import {DataItem} from "./data-item";
+import {Reference} from "./reference";
 
 export interface ProvisionVersion extends DataItem {
     fields: ProvisionVersionFields;
@@ -20,6 +21,7 @@ export interface ContentItem {
     textMain: string;
     innerItemsType?: string;
     innerItems: ContentItem[];
+    references: Reference[];
 }
 
 export class ProvisionCreator {
@@ -44,7 +46,8 @@ export class ProvisionCreator {
             identifier: '',
             title: '',
             textMain: '',
-            innerItems: []
+            innerItems: [],
+            references: []
         };
     }
 }
