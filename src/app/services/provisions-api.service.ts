@@ -11,7 +11,7 @@ import {DifferenceRequest} from "../models/difference-request";
     providedIn: 'root',
 })
 export class ProvisionsApiService {
-    url: string = 'http://localhost:5024/provision';
+    private url: string = 'http://localhost:5024/provision';
 
     constructor(private httpClient: HttpClient) { }
 

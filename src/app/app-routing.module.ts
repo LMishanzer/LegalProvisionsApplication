@@ -4,6 +4,7 @@ import {ProvisionListComponent} from "./components/provision-list/provision-list
 import {ProvisionSidebarComponent} from "./components/provision-sidebar/provision-sidebar.component";
 import {ProvisionComparisonComponent} from "./components/provision-comparison/provision-comparison.component";
 import {AddProvisionComponent} from "./components/add-provision/add-provision.component";
+import {SearchComponent} from "./components/search/search.component";
 
 const routes: Routes = [
     {path: 'provision-list', component: ProvisionListComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
     {path: 'add-provision', component: AddProvisionComponent},
     {path: 'add-provision-version/:provisionId', component: AddProvisionComponent},
     {path: 'update-provision-version/:provisionVersionId', component: AddProvisionComponent},
+    {path: 'search', component: SearchComponent},
 ];
 
 @NgModule({

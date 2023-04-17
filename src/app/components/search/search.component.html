@@ -1,0 +1,33 @@
+<div class="search-container">
+  <div class="search-form">
+    <mat-form-field class="search-field">
+      <mat-label>Search</mat-label>
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="search()" />
+    </mat-form-field>
+<!--    <button class="search-button"-->
+<!--            mat-raised-button-->
+<!--            color="primary"-->
+<!--            (click)="search()">-->
+<!--      Hledat-->
+<!--    </button>-->
+  </div>
+
+  <div class="list-container">
+    <mat-card *ngFor="let provision of provisionList">
+      <div class="main-container">
+        <div class="content" routerLink="/provision/{{provision.id}}">
+          <mat-card-title>
+            {{provision.fields.title}}
+          </mat-card-title>
+          <mat-card-content>
+            <p>
+              <span *ngFor="let keyword of provision.fields.keywords; let last = last">{{keyword}}
+                <span *ngIf="!last">, </span>
+              </span>
+            </p>
+          </mat-card-content>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>

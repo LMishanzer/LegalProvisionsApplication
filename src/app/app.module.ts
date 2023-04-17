@@ -37,6 +37,7 @@ import {MatNativeDateModule} from "@angular/material/core";
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AddReferenceDialogComponent } from './components/add-reference-dialog/add-reference-dialog.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +57,8 @@ import { AddReferenceDialogComponent } from './components/add-reference-dialog/a
         ComparisonItemOldComponent,
         ComparisonItemNewComponent,
         ConfirmationDialogComponent,
-        AddReferenceDialogComponent
+        AddReferenceDialogComponent,
+        SearchComponent
     ],
     imports: [
         BrowserModule,

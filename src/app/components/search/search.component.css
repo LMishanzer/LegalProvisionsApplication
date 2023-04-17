@@ -1,0 +1,48 @@
+mat-card {
+  margin-top: 15px;
+  cursor: pointer;
+  display: flex;
+}
+
+mat-card-title {
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+p {
+  color: #B7B7B7;
+  margin: 10px;
+}
+
+/*.list-container {*/
+/*  margin-top: 65px;*/
+/*}*/
+
+.main-container {
+  display: flex;
+}
+
+.content {
+  flex: 1 1 auto;
+}
+
+.search-button {
+  margin: auto 10px;
+}
+
+.search-field {
+  width: 100%;
+}
+
+.search-container {
+  width: 80%;
+  margin-right: auto;
+  margin-left: auto;
+  /*margin-top: 50px;*/
+  padding-top: 20px;
+}
+
+.search-form {
+  width: 100%;
+  margin: auto;
+}
