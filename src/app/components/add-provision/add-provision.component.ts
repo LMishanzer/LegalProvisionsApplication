@@ -65,7 +65,7 @@ export class AddProvisionComponent implements OnInit {
         };
 
         if (!this.issueDate) {
-            this.snackBar.open('Issue time must be filled', 'Close');
+            this.snackBar.open('Datum schálení musí být vyplněn', 'Close');
             return;
         }
 
@@ -74,7 +74,7 @@ export class AddProvisionComponent implements OnInit {
         this.provisionsApi.addProvision(provisionHeaderFields).subscribe(headerId => {
             this.provisionFields.provisionHeader = headerId;
             this.provisionsApi.addProvisionVersion(this.provisionFields).subscribe(_ => {
-                this.snackBar.open('Provision was successfully saved', 'Close', {
+                this.snackBar.open('Předpis byl úspěšně uložen', 'Close', {
                     duration: 3000
                 });
             });
@@ -83,7 +83,7 @@ export class AddProvisionComponent implements OnInit {
 
     private addNewVersion(): void {
         if (!this.issueDate) {
-            this.snackBar.open('Issue time must be filled', 'Close');
+            this.snackBar.open('Datum schálení musí být vyplněno', 'Close');
             return;
         }
 
@@ -95,7 +95,7 @@ export class AddProvisionComponent implements OnInit {
         this.provisionFields.issueDate = this.issueDate;
 
         this.provisionsApi.addProvisionVersion(this.provisionFields).subscribe(_ => {
-            this.snackBar.open('Provision was successfully saved', 'Close', {
+            this.snackBar.open('Právní předpis byl úspěšně uložen', 'Close', {
                 duration: 3000
             });
         });
@@ -105,7 +105,7 @@ export class AddProvisionComponent implements OnInit {
 
     private updateVersion(): void {
         if (!this.issueDate) {
-            this.snackBar.open('Issue time must be filled', 'Close');
+            this.snackBar.open('Datum schálení musí být vyplněno', 'Close');
             return;
         }
 
@@ -116,7 +116,7 @@ export class AddProvisionComponent implements OnInit {
 
         this.provisionsApi.updateVersion(this.provisionVersion.id, this.provisionFields)
             .subscribe(_ =>
-                this.snackBar.open('New provision version was successfully saved', 'Close', {
+                this.snackBar.open('Právní předpis byl úspěšně uložen', 'Close', {
                     duration: 3000
                 }));
     }
@@ -124,6 +124,7 @@ export class AddProvisionComponent implements OnInit {
     private getProvisionHeader(provisionId: Guid): void {
         this.provisionsApi.getProvisionHeader(provisionId).subscribe(result => {
             this.provisionHeader = result;
+            console.log(result);
             this.keywords = result.fields.keywords.join(', ');
         })
         this.provisionsApi.getActualProvision(provisionId).subscribe(result => {
@@ -139,6 +140,14 @@ export class AddProvisionComponent implements OnInit {
             this.provisionVersion = result;
             this.provisionFields = result.fields;
             this.issueDate = result.fields.issueDate;
+
+            if (!this.provisionHeader) {
+                this.provisionsApi.getProvisionHeader(result.fields.provisionHeader)
+                    .subscribe(headerResult => {
+                        this.provisionHeader = headerResult;
+                        this.keywords = headerResult.fields.keywords.join(', ');
+                    });
+            }
         });
         this.editMode = EditModeEnum.UpdateVersion;
     }

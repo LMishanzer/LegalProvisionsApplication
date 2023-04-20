@@ -1,16 +1,19 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProvisionCreator, ContentItem} from "../../models/provision-version";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
-import {ReferenceDialogData} from "../add-reference-dialog/reference-dialog-data";
+import {HeadersDialogData} from "../add-reference-dialog/headers-dialog-data";
 import {AddReferenceDialogComponent} from "../add-reference-dialog/add-reference-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {ProvisionsApiService} from "../../services/provisions-api.service";
+import {Guid} from "guid-typescript";
+import {ProvisionHeader} from "../../models/provision-header";
 
 @Component({
   selector: 'app-add-provision-content',
   templateUrl: './add-provision-content.component.html',
   styleUrls: ['./add-provision-content.component.css']
 })
-export class AddProvisionContentComponent {
+export class AddProvisionContentComponent implements OnInit {
     @Input() content: ContentItem = ProvisionCreator.getEmptyContent();
     @Input() type?: string = '';
     @Input() availableTypes: string[] = [];
@@ -21,10 +24,16 @@ export class AddProvisionContentComponent {
     identifierVisible: boolean = true;
     titleVisible: boolean = true;
     textMainVisible: boolean = true;
+    references: ProvisionHeader[] = [];
 
     availableTypesForChildren: string[] = [];
 
-    constructor(private dialog: MatDialog) {
+    constructor(private dialog: MatDialog,
+                private provisionService: ProvisionsApiService) {
+    }
+
+    async ngOnInit() {
+        await this.getReferences();
     }
 
     addSection(): void {
@@ -41,7 +50,7 @@ export class AddProvisionContentComponent {
     }
 
     removeNewLines(text: string): string {
-        return text.replace('\n', '');
+        return text.replace(new RegExp('\n', 'g'), ' ');
     }
 
     removeElement() {
@@ -55,16 +64,42 @@ export class AddProvisionContentComponent {
     }
 
     addReference() {
-        let data: ReferenceDialogData = {
-            references: []
+        let data: HeadersDialogData = {
+            references: this.references
         };
+
+        console.log(data);
+
         let dialogRef = this.dialog.open(AddReferenceDialogComponent, {
-            data: data
+            data: data,
+            // width: '700px',
+            // height: '400px'
         });
 
         dialogRef.afterClosed().subscribe(_ => {
-            this.content.references = data.references;
+            this.references = data.references;
+            this.content.references = data.references.map(r => ({
+                provisionId: r.id.toString()
+            }));
+
             console.log(data.references);
+        });
+    }
+
+    private async getReferences(): Promise<void> {
+        if (this.content.references.length > 0) {
+            for (let reference of this.content.references) {
+                let provisionHeader = await this.getProvision(Guid.parse(reference.provisionId));
+                this.references.push(provisionHeader);
+            }
+        }
+    }
+
+    private async getProvision(headerId: Guid): Promise<ProvisionHeader> {
+        return new Promise<ProvisionHeader>((resolve) => {
+            this.provisionService.getProvisionHeader(headerId).subscribe(result =>
+                resolve(result)
+            );
         });
     }
 }

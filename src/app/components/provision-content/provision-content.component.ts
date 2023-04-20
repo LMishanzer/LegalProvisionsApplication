@@ -1,6 +1,10 @@
 import {Component, Input} from '@angular/core';
 import {ProvisionCreator, ContentItem} from 'src/app/models/provision-version';
 import {Router} from "@angular/router";
+import {MatDialog} from "@angular/material/dialog";
+import {ReferenceDialogComponent} from "./reference-dialog/reference-dialog.component";
+import {IdsDialogData} from "./reference-dialog/IdsDialogData";
+import {Guid} from "guid-typescript";
 
 @Component({
   selector: 'app-provision-content',
@@ -10,12 +14,17 @@ import {Router} from "@angular/router";
 export class ProvisionContentComponent {
     @Input() content: ContentItem = ProvisionCreator.getEmptyContent();
 
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                private dialog: MatDialog) {
     }
 
-    goToProvision(provisionId: string): void {
-        this.router.navigate([`/provision/${provisionId}`]).then(()=>{
-            console.log(`After navigation I am on:${this.router.url}`)
+    openReferencesWindow(): void {
+        let data: IdsDialogData = {
+            referenceIds: this.content.references.map(ref => Guid.parse(ref.provisionId))
+        };
+
+        this.dialog.open(ReferenceDialogComponent, {
+            data: data
         });
     }
 }

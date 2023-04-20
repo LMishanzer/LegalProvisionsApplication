@@ -1,16 +1,55 @@
-<h1 mat-dialog-title>Hi user</h1>
+<h1 mat-dialog-title>Úprava odkazů</h1>
 <div mat-dialog-content>
-  <div *ngFor="let reference of references; let i = index">
-    <mat-form-field appearance="fill">
-      <mat-label>Provision ID</mat-label>
-      <input matInput [(ngModel)]="references[i]">
-    </mat-form-field>
+  <div class="list-container" *ngIf="references.length > 0">
+    <h2>Přidané předpisy</h2>
+    <mat-card *ngFor="let referenceToProvision of references">
+      <div class="main-container">
+        <div class="content" (click)="removeReference(referenceToProvision)">
+          <mat-card-title>
+            {{referenceToProvision.fields.title}}
+          </mat-card-title>
+          <mat-card-content>
+            <p>
+              <span *ngFor="let keyword of referenceToProvision.fields.keywords; let last = last">{{keyword}}
+                <span *ngIf="!last">, </span>
+              </span>
+            </p>
+          </mat-card-content>
+        </div>
+      </div>
+    </mat-card>
   </div>
-  <button mat-raised-button (click)="addReference()">
-    Add reference
-  </button>
+
+  <mat-divider *ngIf="references.length > 0"></mat-divider>
+
+  <div class="search-container">
+    <h2>Najít předpis</h2>
+    <div class="search-form">
+      <mat-form-field class="search-field">
+        <mat-label>Search</mat-label>
+        <input matInput [(ngModel)]="searchTerm" (ngModelChange)="search()" />
+      </mat-form-field>
+    </div>
+
+    <div class="list-container">
+      <mat-card *ngFor="let provision of provisionList">
+        <div class="content" (click)="addReference(provision)">
+          <mat-card-title>
+            {{provision.fields.title}}
+          </mat-card-title>
+          <mat-card-content>
+            <p>
+            <span *ngFor="let keyword of provision.fields.keywords; let last = last">{{keyword}}
+              <span *ngIf="!last">, </span>
+            </span>
+            </p>
+          </mat-card-content>
+        </div>
+      </mat-card>
+    </div>
+  </div>
 </div>
-<div mat-dialog-actions>
-  <button mat-button (click)="saveAndClose()" cdkFocusInitial>Save & close</button>
-  <button mat-button (click)="exit()">Exit</button>
+<div mat-dialog-actions class="close-buttons">
+  <button mat-button (click)="saveAndClose()" cdkFocusInitial>Uložit a zavřít</button>
+  <button mat-button (click)="exit()">Zavřít</button>
 </div>

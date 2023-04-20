@@ -43,9 +43,13 @@ mat-card {
   background-color: #b6b2b1;
 }
 
-h3 {
-  margin: 30px 0 0 30px;
+.reference-button {
+  margin-top: 15px;
 }
+
+/*h3 {*/
+/*  margin: 30px 0 0 30px;*/
+/*}*/
 
 .delete-button mat-icon {
   margin: auto;

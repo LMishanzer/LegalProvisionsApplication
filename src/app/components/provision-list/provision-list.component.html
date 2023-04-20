@@ -18,13 +18,15 @@
         <button mat-icon-button
                 class="edit-button"
                 color="accent"
-                title="Edit provision"
+                title="Změnit předpis"
                 routerLink="/add-provision-version/{{provision.id.toString()}}">
           <mat-icon>
             edit
           </mat-icon>
         </button>
-        <button class="delete-button" mat-icon-button color="warn" title="Delete provision"
+        <button class="delete-button"
+                mat-icon-button color="warn"
+                title="Smazat předpis"
                 (click)="deleteProvision(provision.id)">
           <mat-icon>
             delete

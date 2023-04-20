@@ -43,12 +43,12 @@
 <!--    </button>-->
   </div>
 
-  <div>
-    <h4>Odkazy</h4>
-    <button mat-icon-button color="primary" (click)="addReference()">
-      <mat-icon>
-        add
-      </mat-icon>
+  <div class="references-container">
+    <h3 *ngIf="references.length > 0">Přidané odkazy</h3>
+    <p *ngFor="let reference of references">{{reference.fields.title}}</p>
+
+    <button mat-stroked-button class="reference-button" (click)="addReference()">
+      Odkazy
     </button>
   </div>
 
@@ -60,9 +60,9 @@
                                *ngFor="let item of content.innerItems; let i = index"></app-add-provision-content>
   </div>
 
-  <div class="add-section" *ngIf="availableTypes.length > 0">
+  <div class="add-section">
     <mat-form-field appearance="fill"
-                    *ngIf="!content.innerItemsType">
+                    *ngIf="!content.innerItemsType && availableTypes.length > 0">
       <mat-label>Přidat sekci</mat-label>
       <mat-select [(ngModel)]="content.innerItemsType"
                   (ngModelChange)="addSection()">
@@ -72,12 +72,8 @@
       </mat-select>
     </mat-form-field>
 
-    <button mat-stroked-button *ngIf="content.innerItemsType" (click)="addSection()">Add section</button>
-<!--    <button mat-stroked-button *ngIf="!content.innerItemsType" (click)="switchDropdown()">Add section</button>-->
-<!--    <div class="dropdown-content" *ngIf="showDropdown">-->
-<!--      <a (click)="addSection('Část')">Část</a>-->
-<!--      <a (click)="addSection('Článek')">Článek</a>-->
-<!--      <a (click)="addSection('Odstavec')">Odstavec</a>-->
-<!--    </div>-->
+    <button mat-raised-button color="primary" *ngIf="content.innerItems.length > 0" (click)="addSection()">
+      Add section
+    </button>
   </div>
 </mat-card>

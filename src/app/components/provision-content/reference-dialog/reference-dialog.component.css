@@ -7,16 +7,6 @@ mat-card-title {
   margin: 10px;
 }
 
-mat-divider {
-  margin: 20px 0;
-}
-
 div, mat-form-field {
   width: 100%;
 }
-
-/*.close-buttons {*/
-/*  bottom: 0;*/
-/*  position: absolute;*/
-/*  padding: 25px;*/
-/*}*/

@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Úprava odkazů</h1>
+<div mat-dialog-content>
+  <div class="list-container" *ngIf="references.length > 0">
+    <h2>Přidané předpisy</h2>
+    <mat-card *ngFor="let referenceToProvision of references">
+      <div class="main-container">
+        <div class="content" (click)="goToProvision(referenceToProvision)">
+          <mat-card-title>
+            {{referenceToProvision.fields.title}}
+          </mat-card-title>
+          <mat-card-content>
+            <p>
+              <span *ngFor="let keyword of referenceToProvision.fields.keywords; let last = last">{{keyword}}
+                <span *ngIf="!last">, </span>
+              </span>
+            </p>
+          </mat-card-content>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
+<div mat-dialog-actions class="close-buttons">
+<!--  <button mat-button (click)="saveAndClose()" cdkFocusInitial>Save & close</button>-->
+  <button mat-button (click)="dialogRef.close()">Zavřít</button>
+</div>
