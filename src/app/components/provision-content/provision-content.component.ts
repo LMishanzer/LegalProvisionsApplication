@@ -13,6 +13,8 @@ import {Guid} from "guid-typescript";
 })
 export class ProvisionContentComponent {
     @Input() content: ContentItem = ProvisionCreator.getEmptyContent();
+    @Input() itemType?: string;
+    @Input() order?: number;
 
     constructor(private router: Router,
                 private dialog: MatDialog) {

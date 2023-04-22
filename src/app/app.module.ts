@@ -39,6 +39,7 @@ import {MatDialogModule} from "@angular/material/dialog";
 import { AddReferenceDialogComponent } from './components/add-reference-dialog/add-reference-dialog.component';
 import { SearchComponent } from './components/search/search.component';
 import { ReferenceDialogComponent } from './components/provision-content/reference-dialog/reference-dialog.component';
+import {MatTreeModule} from "@angular/material/tree";
 
 @NgModule({
     declarations: [
@@ -85,6 +86,7 @@ import { ReferenceDialogComponent } from './components/provision-content/referen
         MatNativeDateModule,
         CdkDragHandle,
         MatDialogModule,
+        MatTreeModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

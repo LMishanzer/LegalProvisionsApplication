@@ -6,14 +6,18 @@ import { Guid } from "guid-typescript";
 import {ProvisionHeader, ProvisionHeaderFields} from "../models/provision-header";
 import {ProvisionDifference} from "../models/provision-difference";
 import {DifferenceRequest} from "../models/difference-request";
+import {ApiSettings} from "../api/api-settings";
 
 @Injectable({
     providedIn: 'root',
 })
 export class ProvisionsApiService {
-    private url: string = 'http://localhost:5024/provision';
+    private readonly url: string;
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient) {
+        let apiSettings = new ApiSettings();
+        this.url = `${apiSettings.baseUrl}/provision`;
+    }
 
     getAll(): Observable<ProvisionHeader[]> {
         return this.httpClient.get<ProvisionHeader[]>(`${this.url}/getall`);

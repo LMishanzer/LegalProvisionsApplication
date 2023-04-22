@@ -1,9 +1,14 @@
-<mat-list-item>
-  <span class="section-name">{{type}}</span> {{contentItem.title}}
-</mat-list-item>
+<mat-nested-tree-node>
+  {{contentItem.title}}
+</mat-nested-tree-node>
 
-<mat-list *ngIf="contentItem.innerItemsType != 'Bod'">
-  <app-provision-menu-item *ngFor="let child of contentItem.innerItems"
-                           [contentItem]="child"
-                           [type]="contentItem.innerItemsType"></app-provision-menu-item>
-</mat-list>
+
+<!--<mat-list-item>-->
+<!--  <span class="section-name">{{type}}</span> {{contentItem.title}}-->
+<!--</mat-list-item>-->
+
+<!--<mat-list *ngIf="contentItem.innerItemsType != 'Bod'">-->
+<!--  <app-provision-menu-item *ngFor="let child of contentItem.innerItems"-->
+<!--                           [contentItem]="child"-->
+<!--                           [type]="contentItem.innerItemsType"></app-provision-menu-item>-->
+<!--</mat-list>-->

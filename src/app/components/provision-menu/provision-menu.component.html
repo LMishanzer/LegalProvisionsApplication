@@ -1,12 +1,33 @@
-<mat-list>
-  <mat-list-item class="menu-title">
-    <span>{{provision.fields.content.title}}</span>
-  </mat-list-item>
+<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+  <!-- This is the tree node template for leaf nodes -->
+  <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding="20px">
+    <!-- use a disabled button to provide padding for tree leaf -->
+    <button mat-icon-button disabled></button>
+    {{node.title}}
+  </mat-tree-node>
+  <!-- This is the tree node template for expandable nodes -->
+  <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding="20px">
+    <button mat-icon-button matTreeNodeToggle
+            [attr.aria-label]="'Toggle ' + node.name">
+      <mat-icon class="mat-icon-rtl-mirror">
+        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+      </mat-icon>
+    </button>
+    {{node.title}}
+  </mat-tree-node>
+</mat-tree>
 
-  <mat-list-item class="menu-item" *ngFor="let item of provision.fields.content.innerItems">
-    <a [href]="'#' + item.id?.toString()">
-      <span class="type-spec">{{provision.fields.content.innerItemsType}}</span> {{item.title}}
-    </a>
+
+
+<!--<mat-list>-->
+<!--  <mat-list-item class="menu-title">-->
+<!--    <span>{{provision.fields.content.title}}</span>-->
+<!--  </mat-list-item>-->
+
+<!--  <mat-list-item class="menu-item" *ngFor="let item of provision.fields.content.innerItems">-->
+<!--    <a [href]="'#' + item.id?.toString()">-->
+<!--      <span class="type-spec">{{provision.fields.content.innerItemsType}}</span> {{item.title}}-->
+<!--    </a>-->
 <!--    <mat-expansion-panel>-->
 <!--      <mat-expansion-panel-header>-->
 <!--        <mat-panel-title>-->
@@ -18,11 +39,11 @@
 <!--      </mat-expansion-panel-header>-->
 <!--      <p>Some text</p>-->
 <!--    </mat-expansion-panel>-->
-  </mat-list-item>
+<!--  </mat-list-item>-->
 <!--  <app-provision-menu-item *ngFor="let child of provision.fields.content.innerItems"-->
 <!--                           [contentItem]="child"-->
 <!--                           [type]="provision.fields.content.innerItemsType"></app-provision-menu-item>-->
-</mat-list>
+<!--</mat-list>-->
 
 
 <!--<mat-expansion-panel hideToggle>-->
