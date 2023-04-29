@@ -18,3 +18,11 @@ button {
 #keywords-form {
   width: 100%;
 }
+
+.bold {
+  font-weight: bold;
+}
+
+.files-container {
+  padding-left: 20px;
+}

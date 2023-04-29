@@ -12,6 +12,7 @@ export interface ProvisionVersionFields {
     validFrom?: Date;
     takesEffectFrom?: Date;
     content: ContentItem;
+    fileMetadata?: FileMetadata;
 }
 
 export interface ContentItem {
@@ -22,6 +23,10 @@ export interface ContentItem {
     innerItemsType?: string;
     innerItems: ContentItem[];
     references: Reference[];
+}
+
+export interface FileMetadata {
+    name: string;
 }
 
 export class ProvisionCreator {

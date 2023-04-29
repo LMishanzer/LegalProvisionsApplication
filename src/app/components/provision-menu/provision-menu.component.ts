@@ -17,7 +17,7 @@ interface ExampleFlatNode {
 export class ProvisionMenuComponent implements OnChanges {
     @Input() provision: ProvisionVersion = ProvisionCreator.getEmptyProvision();
 
-    private _transformer = (node: ContentItem, level: number): ExampleFlatNode => {
+    private _transformer(node: ContentItem, level: number): ExampleFlatNode {
         return {
             expandable: !!node.innerItems && node.innerItems.length > 0 && node.innerItemsType !== 'Bod',
             title: node.title,

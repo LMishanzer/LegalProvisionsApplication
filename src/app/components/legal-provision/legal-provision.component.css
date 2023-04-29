@@ -2,3 +2,12 @@
   margin: 0 15px;
   padding: 1.5rem;
 }
+
+a {
+  position: absolute;
+  right: 15px;
+}
+
+mat-card-title {
+  width: auto;
+}

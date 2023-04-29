@@ -53,10 +53,19 @@
     </mat-form-field>
   </div>
 
+  <div class="files-container">
+    <div *ngIf="provisionVersion?.fields?.fileMetadata?.name">
+      <p><span class="bold">Aktuální úplná verze dokumentu: </span>{{provisionVersion!.fields.fileMetadata!.name}}</p>
+    </div>
+
+    <input type="file" (change)="onFileSelected($event)">
+  </div>
+
   <app-add-provision-content [content]="provisionFields.content"
                              [availableTypes]="availableTypes"></app-add-provision-content>
 
-  <button mat-raised-button color="accent" (click)="saveProvision()" >
+  <button mat-raised-button color="accent" (click)="saveProvision()" [disabled]="saving">
     Uložit předpis
+    <mat-progress-bar mode="indeterminate" *ngIf="saving"></mat-progress-bar>
   </button>
 </div>

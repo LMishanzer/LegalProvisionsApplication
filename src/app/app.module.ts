@@ -23,7 +23,7 @@ import { AddProvisionComponent } from './components/add-provision/add-provision.
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {MatInputModule} from "@angular/material/input";
 import { AddProvisionContentComponent } from './components/add-provision-content/add-provision-content.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { FooterComponent } from './components/footer/footer.component';
 import { ProvisionListComponent } from './components/provision-list/provision-list.component';
 import { VersionsListComponent } from './components/versions-list/versions-list.component';
@@ -40,6 +40,7 @@ import { AddReferenceDialogComponent } from './components/add-reference-dialog/a
 import { SearchComponent } from './components/search/search.component';
 import { ReferenceDialogComponent } from './components/provision-content/reference-dialog/reference-dialog.component';
 import {MatTreeModule} from "@angular/material/tree";
+import {MatProgressBarModule} from "@angular/material/progress-bar";
 
 @NgModule({
     declarations: [
@@ -87,6 +88,8 @@ import {MatTreeModule} from "@angular/material/tree";
         CdkDragHandle,
         MatDialogModule,
         MatTreeModule,
+        ReactiveFormsModule,
+        MatProgressBarModule
     ],
     providers: [],
     bootstrap: [AppComponent]
