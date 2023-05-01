@@ -11,12 +11,11 @@ app-provision-menu-item {
   font-weight: bold;
 }
 
-.menu-item:hover {
+mat-tree-node:hover {
+  background-color: #8556b6;
   cursor: pointer;
-  background-color: #b6b2b1;
 }
 
-mat-list-item a {
-  text-decoration: none;
-  color: inherit;
+.bold {
+  font-weight: bold;
 }

@@ -55,7 +55,10 @@
 
   <div class="files-container">
     <div *ngIf="provisionVersion?.fields?.fileMetadata?.name">
-      <p><span class="bold">Aktuální úplná verze dokumentu: </span>{{provisionVersion!.fields.fileMetadata!.name}}</p>
+      <p>
+        <span class="bold">Aktuální úplná verze dokumentu: </span>
+        <a href="{{fullVersionHref}}">{{provisionVersion!.fields.fileMetadata!.name}}</a>
+      </p>
     </div>
 
     <input type="file" (change)="onFileSelected($event)">

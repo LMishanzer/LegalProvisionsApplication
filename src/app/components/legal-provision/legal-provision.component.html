@@ -1,14 +1,23 @@
 <mat-card class="content">
+  <div class="top">
+    <a mat-stroked-button
+       id="download-button"
+       color="warn"
+       href="http://localhost:5024/file/b7f306b2-2e3a-4495-a438-125a74121345">
+      Stáhnout plnou verzi dokumentu
+      <mat-icon>
+        download
+      </mat-icon>
+    </a>
+  </div>
   <mat-card-header>
-    <mat-card-title>
+    <mat-card-title class="bold center">
       {{provision.fields.content.title}}
     </mat-card-title>
+    <mat-card-subtitle class="italic center">
+      {{provision.fields.content.textMain}}
+    </mat-card-subtitle>
   </mat-card-header>
-  <a mat-icon-button color="warn" href="http://localhost:5024/file/b7f306b2-2e3a-4495-a438-125a74121345">
-    <mat-icon>
-      download
-    </mat-icon>
-  </a>
   <mat-card-content>
     <app-provision-content *ngFor="let child of provision.fields.content.innerItems"
                            [content]="child"

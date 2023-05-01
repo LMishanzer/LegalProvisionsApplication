@@ -23,6 +23,7 @@ export interface ContentItem {
     innerItemsType?: string;
     innerItems: ContentItem[];
     references: Reference[];
+    type?: string;
 }
 
 export interface FileMetadata {

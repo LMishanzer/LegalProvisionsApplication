@@ -1,13 +1,15 @@
-<div [id]="content.id">
-  <h2 *ngIf="itemType && itemType !== 'Bod'">{{itemType}} {{content.identifier}}</h2>
+<div>
+  <h2 *ngIf="itemType && showHeader" id="{{content.id?.toString()}}">
+    {{itemType}} {{content.identifier}}
+  </h2>
   <h3 *ngIf="content.title">{{content.title}}</h3>
   <p>
-    <span *ngIf="itemType === 'Bod' && order" class="order">{{order}}. </span>
+    <span *ngIf="showHeader && order" class="order">{{order}}. </span>
     {{content.textMain}}
   </p>
 
   <div *ngIf="content.references.length > 0">
-    <button mat-stroked-button (click)="openReferencesWindow()" >
+    <button mat-stroked-button (click)="openReferencesWindow()">
       Zobrazit odkazy
     </button>
   </div>

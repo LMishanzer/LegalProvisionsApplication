@@ -3,12 +3,9 @@
     <app-provision-menu [provision]="provisionVersion"></app-provision-menu>
   </mat-sidenav>
   <mat-sidenav-content>
-    <button mat-mini-fab color="primary" (click)="isSidebarOpened = !isSidebarOpened">
-      <mat-icon *ngIf="!isSidebarOpened">
-        arrow_forward
-      </mat-icon>
-      <mat-icon *ngIf="isSidebarOpened">
-        arrow_back
+    <button mat-mini-fab color="primary" id="expansion-button" (click)="isSidebarOpened = !isSidebarOpened">
+      <mat-icon>
+        {{isSidebarOpened ? 'arrow_back' : 'arrow_forward'}}
       </mat-icon>
     </button>
 

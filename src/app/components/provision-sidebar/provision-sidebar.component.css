@@ -1,13 +1,8 @@
-mat-toolbar {
-  background: #004a9f;
-  color: white;
-}
-
 mat-sidenav {
   margin: 16px 0 16px 16px;
-  width: 30vw;
+  width: 30rem;
   border-right: none;
-  background: #dcdcdc;
+  /*background: #dcdcdc;*/
   color: white;
   border-radius: 10px;
   text-align: left;
@@ -44,6 +39,10 @@ button {
   margin-left: 10px;
   z-index: 5;
   display: block;
+}
+
+#expansion-button {
+  position: fixed;
 }
 
 app-legal-provision {

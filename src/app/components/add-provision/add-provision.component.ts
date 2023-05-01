@@ -7,6 +7,7 @@ import {EditModeEnum} from "../../models/edit-mode-enum";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Guid} from "guid-typescript";
 import {FileService} from "../../services/file.service";
+import {ApiSettings} from "../../api/api-settings";
 
 @Component({
   selector: 'app-add-provision',
@@ -30,26 +31,31 @@ export class AddProvisionComponent implements OnInit {
 
     saving: boolean = false;
 
+    fullVersionHref: string = '';
+
     constructor(private provisionsApi: ProvisionsApiService,
                 private snackBar: MatSnackBar,
                 private route: ActivatedRoute,
                 private fileService: FileService,
-                private router: Router) {}
+                private router: Router) {
+    }
 
-    ngOnInit() {
+    async ngOnInit(): Promise<void> {
         let provisionId = this.route.snapshot.paramMap.get('provisionId');
         if (provisionId) {
             let provisionGuid = Guid.parse(provisionId);
-            this.getProvisionHeader(provisionGuid);
+            await this.getProvisionHeader(provisionGuid);
         }
 
-        // console.log(this.route.snapshot);
         let provisionVersionId = this.route.snapshot.paramMap.get('provisionVersionId');
         if (!provisionVersionId)
             return;
 
         let provisionVersionGuid = Guid.parse(provisionVersionId);
-        this.getProvisionVersion(provisionVersionGuid);
+        await this.getProvisionVersion(provisionVersionGuid);
+
+        const settings = new ApiSettings();
+        this.fullVersionHref = `${settings.baseUrl}/file/${provisionVersionId}`;
     }
 
     async saveProvision(): Promise<void> {
@@ -161,35 +167,55 @@ export class AddProvisionComponent implements OnInit {
         })
     }
 
-    private getProvisionHeader(provisionId: Guid): void {
-        this.provisionsApi.getProvisionHeader(provisionId).subscribe(result => {
-            this.provisionHeader = result;
-            console.log(result);
-            this.keywords = result.fields.keywords.join(', ');
-        })
-        this.provisionsApi.getActualProvision(provisionId).subscribe(result => {
-            // this.provisionVersion = result;
-            this.provisionFields = result.fields;
-        });
+    private async getProvisionHeader(provisionId: Guid): Promise<void> {
+        await this.getHeader(provisionId);
+        await this.getActualVersion(provisionId);
 
         this.editMode = EditModeEnum.NewVersion;
     }
 
-    private getProvisionVersion(provisionVersionId: Guid): void {
-        this.provisionsApi.getProvisionVersionById(provisionVersionId).subscribe(result => {
-            this.provisionVersion = result;
-            this.provisionFields = result.fields;
-            this.issueDate = result.fields.issueDate;
+    private async getHeader(provisionId: Guid): Promise<void> {
+        return new Promise(resolve => {
+            this.provisionsApi.getProvisionHeader(provisionId).subscribe(result => {
+                this.provisionHeader = result;
+                console.log(result);
+                this.keywords = result.fields.keywords.join(', ');
 
-            if (!this.provisionHeader) {
-                this.provisionsApi.getProvisionHeader(result.fields.provisionHeader)
-                    .subscribe(headerResult => {
-                        this.provisionHeader = headerResult;
-                        this.keywords = headerResult.fields.keywords.join(', ');
-                    });
-            }
+                resolve();
+            });
         });
+    }
+
+    private async getActualVersion(provisionId: Guid): Promise<void> {
+        return new Promise(resolve => {
+            this.provisionsApi.getActualProvision(provisionId).subscribe(result => {
+                this.provisionFields = result.fields;
+
+                resolve();
+            });
+        });
+    }
+
+    private async getProvisionVersion(provisionVersionId: Guid): Promise<void> {
         this.editMode = EditModeEnum.UpdateVersion;
+
+        return new Promise(resolve => {
+            this.provisionsApi.getProvisionVersionById(provisionVersionId).subscribe(result => {
+                this.provisionVersion = result;
+                this.provisionFields = result.fields;
+                this.issueDate = result.fields.issueDate;
+
+                if (!this.provisionHeader) {
+                    this.provisionsApi.getProvisionHeader(result.fields.provisionHeader)
+                        .subscribe(headerResult => {
+                            this.provisionHeader = headerResult;
+                            this.keywords = headerResult.fields.keywords.join(', ');
+
+                            resolve();
+                        });
+                }
+            });
+        });
     }
 
     correctDate(date?: Date): Date | undefined {

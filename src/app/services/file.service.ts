@@ -24,4 +24,10 @@ export class FileService {
             responseType: 'text'
         });
     }
+
+    downloadFile(versionId: Guid): Observable<Blob> {
+        return this.httpClient.get(`${this.url}/${versionId}`, {
+            responseType: 'blob'
+        });
+    }
 }
