@@ -18,9 +18,11 @@
         <mat-form-field appearance="fill" *ngIf="provision">
           <mat-label>Compare</mat-label>
           <mat-select [(value)]="dateOfChange">
-            <mat-option *ngFor="let date of provision.fields.datesOfChange" [value]="date">
-              {{date}}
-            </mat-option>
+            <ng-container *ngFor="let date of provision.fields.datesOfChange">
+              <mat-option *ngIf="date !== currentDate" [value]="date">
+                {{date}}
+              </mat-option>
+            </ng-container>
           </mat-select>
         </mat-form-field>
 
@@ -28,19 +30,44 @@
           Compare version
         </button>
 
-        <button class="edit-button"
-                mat-raised-button
-                routerLink="/update-provision-version/{{provisionVersion.id}}"
-                color="accent">
-          Edit version
-        </button>
+        <div class="manipulation-buttons">
 
-        <button class="delete-button"
-                mat-raised-button
-                color="warn"
-                (click)="deleteVersion(provisionVersion)">
-          Delete version
-        </button>
+          <div class="section">
+            <h2 class="section-header">Verze</h2>
+            <button class="edit-button"
+                    mat-raised-button
+                    routerLink="/update-provision-version/{{provisionVersion.id}}"
+                    color="accent">
+              Upravit verzi
+            </button>
+            <button class="delete-button"
+                    mat-raised-button
+                    color="warn"
+                    (click)="deleteVersion(provisionVersion)">
+              Smazat verzi
+            </button>
+          </div>
+
+          <mat-divider id="button-divider"></mat-divider>
+
+          <div class="section">
+            <h2 class="section-header">Předpis</h2>
+            <button mat-raised-button
+                    class="edit-button"
+                    id="edit-provision"
+                    routerLink="/add-provision-version/{{provision?.id?.toString()}}">
+              Upravit přespis
+            </button>
+            <button mat-raised-button
+                    class="delete-button"
+                    id="delete-provision"
+                    (click)="deleteProvision()">
+              Smazat přespis
+            </button>
+          </div>
+
+        </div>
+
       </div>
     </div>
   </mat-sidenav-content>

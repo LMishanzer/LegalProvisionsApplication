@@ -14,9 +14,9 @@ p {
   margin: 10px;
 }
 
-/*.list-container {*/
-/*  margin-top: 65px;*/
-/*}*/
+.search-list-container {
+  padding-bottom: 10px;
+}
 
 .main-container {
   display: flex;

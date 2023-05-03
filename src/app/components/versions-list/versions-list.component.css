@@ -1,13 +1,9 @@
-/*.version-list-container {*/
-/*  width: 13rem;*/
-/*}*/
-
-/*.version-list {*/
-/*  position: fixed;*/
-/*}*/
-
 a {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+}
+
+.selected {
+  font-weight: bold;
 }

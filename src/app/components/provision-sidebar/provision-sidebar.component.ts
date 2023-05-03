@@ -4,6 +4,10 @@ import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {Guid} from "guid-typescript";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ProvisionHeader} from "../../models/provision-header";
+import {ConfirmationDialogData} from "../../models/confirmation-dialog-data";
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-provision-sidebar',
@@ -18,9 +22,13 @@ export class ProvisionSidebarComponent implements OnInit {
 
     dateOfChange: Date = new Date(0);
 
+    currentDate?: Date;
+
     constructor(private route: ActivatedRoute,
                 private router: Router,
-                private provisionApi: ProvisionsApiService) {
+                private provisionApi: ProvisionsApiService,
+                private dialog: MatDialog,
+                private snackBar: MatSnackBar) {
     }
 
     ngOnInit() {
@@ -33,6 +41,8 @@ export class ProvisionSidebarComponent implements OnInit {
 
     getProvision(date?: Date, id?: Guid) {
         id = id || Guid.parse(this.route.snapshot.paramMap.get('provisionId') || '');
+
+        this.currentDate = date;
 
         this.provisionApi.getProvisionHeader(id).subscribe(result =>
             this.provision = result
@@ -65,8 +75,45 @@ export class ProvisionSidebarComponent implements OnInit {
     }
 
     deleteVersion(version: ProvisionVersion) {
-        this.provisionApi.deleteProvisionVersion(version.id).subscribe(_ => {
-           this.getProvision();
+        let data: ConfirmationDialogData = {
+            message: "Opravdu chcete smazat právní předpis?",
+            result: false
+        };
+        let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            data: data
+        });
+
+        dialogRef.afterClosed().subscribe(_ => {
+            if (data.result) {
+                this.provisionApi.deleteProvisionVersion(version.id).subscribe(_ => {
+                    this.getProvision();
+                    this.snackBar.open('Předpis byl smazán', 'Close', {
+                        duration: 3000
+                    });
+                });
+            }
+        });
+    }
+
+    async deleteProvision(): Promise<void> {
+        if (!this.provision)
+            return;
+
+        let headerId = this.provision?.id;
+        let data: ConfirmationDialogData = {
+            message: "Opravdu chcete smazat právní předpis?",
+            result: false
+        };
+        let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            data: data
+        });
+
+        dialogRef.afterClosed().subscribe(_ => {
+            if (data.result) {
+                this.provisionApi.deleteProvision(headerId).subscribe(_ => {
+                    this.router.navigateByUrl('/provision-list');
+                });
+            }
         });
     }
 

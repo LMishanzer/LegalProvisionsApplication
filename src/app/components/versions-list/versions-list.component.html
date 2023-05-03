@@ -1,7 +1,7 @@
 <div class="version-list-container">
   <ul class="version-list" *ngIf="provisionHeader">
-    <li *ngFor="let date of provisionHeader.fields.datesOfChange">
-      <a (click)="changeDate(date)" >
+    <li *ngFor="let date of dates">
+      <a (click)="changeDate(date)" [ngClass]="{'selected': date === selectedDate}">
         {{date | date}}
       </a>
     </li>

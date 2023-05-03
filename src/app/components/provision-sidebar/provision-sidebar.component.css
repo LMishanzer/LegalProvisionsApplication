@@ -64,9 +64,34 @@ mat-form-field {
 }
 
 .edit-button {
-  margin-top: 3rem;
+  margin: 1rem auto;
 }
 
 .delete-button {
-  margin-top: 1rem;
+  margin: 1rem auto;
+}
+
+#button-divider {
+  margin-top: 3rem;
+}
+
+.section {
+  margin-top: 3rem;
+}
+
+.section-header {
+  text-align: center;
+}
+
+.manipulation-buttons {
+  margin-top: 15rem;
+}
+
+#edit-provision {
+  background-color: #ff8c26;
+}
+
+#delete-provision {
+  background-color: #cf0000;
+  color: #ffff;
 }

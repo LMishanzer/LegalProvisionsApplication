@@ -35,3 +35,7 @@ mat-card-subtitle {
   position: absolute;
   right: 30px;
 }
+
+.ref-button {
+  margin-top: 25px;
+}

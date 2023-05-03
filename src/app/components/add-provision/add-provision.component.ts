@@ -8,6 +8,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Guid} from "guid-typescript";
 import {FileService} from "../../services/file.service";
 import {ApiSettings} from "../../api/api-settings";
+import {ErrorHandlerService} from "../../services/error-handler.service";
 
 @Component({
   selector: 'app-add-provision',
@@ -37,7 +38,8 @@ export class AddProvisionComponent implements OnInit {
                 private snackBar: MatSnackBar,
                 private route: ActivatedRoute,
                 private fileService: FileService,
-                private router: Router) {
+                private router: Router,
+                private errorHandler: ErrorHandlerService) {
     }
 
     async ngOnInit(): Promise<void> {
@@ -59,6 +61,12 @@ export class AddProvisionComponent implements OnInit {
     }
 
     async saveProvision(): Promise<void> {
+        if (!this.issueDate) {
+            this.errorHandler.showError('Datum schválení není vyplněno.');
+
+            return;
+        }
+
         this.saving = true;
 
         switch (this.editMode) {
