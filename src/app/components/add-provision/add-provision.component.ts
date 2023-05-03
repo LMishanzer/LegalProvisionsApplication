@@ -24,8 +24,8 @@ export class AddProvisionComponent implements OnInit {
     editMode: EditModeEnum = EditModeEnum.Create;
     keywords: string = '';
     issueDate?: Date;
-    availableTypes: string[] = ['Část', 'Hlava', 'Díl', 'Oddíl', 'Pododdíl', 'Článek',
-        'Odstavec, Pododstavec', 'Bod'];
+    availableTypes: string[] = ['Část', 'Hlava', 'Díl', 'Oddíl', 'Pododdíl', 'Článek', 'Paragraf',
+        'Odstavec', 'Pododstavec', 'Bod'];
     issuers: string[] = ['MŠMT', 'ČVUT', 'FIT'];
     issuer: string = this.issuers[0];
 
