@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {SearchService} from "../../services/search.service";
-import {ProvisionHeader} from "../../models/provision-header";
+import {SearchResult} from "../../models/search-result";
 
 @Component({
   selector: 'app-search',
@@ -9,7 +9,7 @@ import {ProvisionHeader} from "../../models/provision-header";
 })
 export class SearchComponent {
     searchTerm: string = '';
-    provisionList: ProvisionHeader[] = [];
+    resultList: SearchResult[] = [];
 
     constructor(private searchService: SearchService) {
     }
@@ -20,7 +20,7 @@ export class SearchComponent {
         }
 
         this.searchService.search(this.searchTerm).subscribe(response => {
-            this.provisionList = response;
+            this.resultList = response;
         });
     }
 }

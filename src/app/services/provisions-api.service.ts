@@ -65,7 +65,11 @@ export class ProvisionsApiService {
     }
 
     updateVersion(versionId: Guid, versionFields: ProvisionVersionFields): Observable<any> {
-        return this.httpClient.put(`${this.url}/updateversion/${versionId}`, versionFields);
+        return this.httpClient.put(`${this.url}/updateversion/${versionId.toString()}`, versionFields);
+    }
+
+    updateHeader(headerId: Guid, headerFields: ProvisionHeaderFields): Observable<any> {
+        return this.httpClient.put(`${this.url}/updateheader/${headerId.toString()}`, headerFields);
     }
 
     deleteProvision(headerId: Guid): Observable<any> {

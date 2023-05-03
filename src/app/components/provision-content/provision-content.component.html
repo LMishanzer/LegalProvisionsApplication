@@ -4,7 +4,7 @@
   </h2>
   <h3 *ngIf="content.title">{{content.title}}</h3>
   <p>
-    <span *ngIf="showHeader && order" class="order">{{order}}. </span>
+    <span *ngIf="!showHeader && order" class="order">{{order}}. </span>
     {{content.textMain}}
   </p>
 

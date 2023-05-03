@@ -3,6 +3,7 @@ import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import {HeadersDialogData} from "./headers-dialog-data";
 import {SearchService} from "../../services/search.service";
 import {ProvisionHeader} from "../../models/provision-header";
+import {concatMap} from "rxjs";
 
 @Component({
   selector: 'app-add-reference-dialog',
@@ -51,8 +52,10 @@ export class AddReferenceDialogComponent implements OnInit {
             throw new Error('Search term cannot be empty.');
         }
 
-        this.searchService.search(this.searchTerm).subscribe(response => {
-            this.provisionList = response;
+        this.searchService.search(this.searchTerm).pipe(
+            concatMap(items => items)
+        ).subscribe(response => {
+            this.provisionList.push(response.provisionHeader);
         });
     }
 }

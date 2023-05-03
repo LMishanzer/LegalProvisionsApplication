@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {ProvisionHeader} from "../models/provision-header";
 import {ApiSettings} from "../api/api-settings";
+import {SearchResult} from "../models/search-result";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +15,8 @@ export class SearchService {
         this.url = `${apiSettings.baseUrl}/search`;
     }
 
-    search(keyword: string): Observable<ProvisionHeader[]> {
-        return this.httpClient.post<ProvisionHeader[]>(this.url, {
+    search(keyword: string): Observable<SearchResult[]> {
+        return this.httpClient.post<SearchResult[]>(this.url, {
             keyword: keyword
         });
     }

@@ -126,7 +126,7 @@ export class AddProvisionComponent implements OnInit {
         return Promise.resolve();
     }
 
-    private updateVersion(): Promise<void> {
+    private async updateVersion(): Promise<void> {
         if (!this.issueDate) {
             this.snackBar.open('Datum schálení musí být vyplněno', 'Close');
             return Promise.resolve();
@@ -136,6 +136,8 @@ export class AddProvisionComponent implements OnInit {
 
         if (!this.provisionVersion?.id)
             throw new Error('Provision version ID is empty.');
+
+        await this.updateHeader();
 
         return new Promise(resolve => {
             this.provisionsApi.updateVersion(this.provisionVersion!.id, this.provisionFields)
@@ -152,7 +154,9 @@ export class AddProvisionComponent implements OnInit {
         });
     }
 
-    private addProvisionVersion(): Promise<void> {
+    private async addProvisionVersion(): Promise<void> {
+        await this.updateHeader();
+
         return new Promise<void>((resolve) => {
             this.provisionsApi.addProvisionVersion(this.provisionFields).subscribe(versionId => {
                 if (this.file) {
@@ -165,6 +169,18 @@ export class AddProvisionComponent implements OnInit {
                 }
             });
         })
+    }
+
+    private updateHeader(): Promise<void> {
+        if (!this.provisionHeader)
+            return Promise.resolve();
+
+        this.provisionHeader.fields.keywords = this.keywords.split(', ');
+
+        return new Promise(resolve => {
+            this.provisionsApi.updateHeader(this.provisionHeader!.id, this.provisionHeader!.fields)
+                .subscribe(_ => resolve());
+        });
     }
 
     private async getProvisionHeader(provisionId: Guid): Promise<void> {

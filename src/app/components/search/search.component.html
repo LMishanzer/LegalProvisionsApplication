@@ -13,15 +13,15 @@
   </div>
 
   <div class="list-container">
-    <mat-card *ngFor="let provision of provisionList">
+    <mat-card *ngFor="let result of resultList">
       <div class="main-container">
-        <div class="content" routerLink="/provision/{{provision.id}}">
+        <div class="content" routerLink="/provision/{{result.provisionHeader.id}}">
           <mat-card-title>
-            {{provision.fields.title}}
+            {{result.provisionHeader.fields.title}}
           </mat-card-title>
           <mat-card-content>
             <p>
-              <span *ngFor="let keyword of provision.fields.keywords; let last = last">{{keyword}}
+              <span *ngFor="let keyword of result.provisionHeader.fields.keywords; let last = last">{{keyword}}
                 <span *ngIf="!last">, </span>
               </span>
             </p>

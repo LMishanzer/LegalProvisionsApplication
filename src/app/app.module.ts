@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LegalProvisionComponent } from './components/legal-provision/legal-provision.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -41,6 +41,8 @@ import { SearchComponent } from './components/search/search.component';
 import { ReferenceDialogComponent } from './components/provision-content/reference-dialog/reference-dialog.component';
 import {MatTreeModule} from "@angular/material/tree";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import { ErrorBoxComponent } from './components/error-box/error-box.component';
+import {ErrorIntercept} from "./interceptors/ErrorIntercept";
 
 @NgModule({
     declarations: [
@@ -62,7 +64,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
         ConfirmationDialogComponent,
         AddReferenceDialogComponent,
         SearchComponent,
-        ReferenceDialogComponent
+        ReferenceDialogComponent,
+        ErrorBoxComponent
     ],
     imports: [
         BrowserModule,
@@ -91,7 +94,13 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
         ReactiveFormsModule,
         MatProgressBarModule
     ],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorIntercept,
+            multi: true
+        }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

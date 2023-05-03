@@ -1,0 +1,8 @@
+<div mat-dialog-content>
+  <h1 class="warn center">Chyba!</h1>
+  <h2 class="center">{{data.title}}</h2>
+  <p *ngIf="data.text" class="center">{{data.text}}</p>
+</div>
+<div mat-dialog-actions>
+  <button class="center" mat-button (click)="dialogRef.close()">OK</button>
+</div>
