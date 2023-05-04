@@ -47,14 +47,6 @@ export class ProvisionComparisonComponent implements OnInit {
     }
 
     getDifference() {
-        // let val = JSON.stringify({
-        //     provisionId: this.provisionId.toString(),
-        //     firstProvisionIssue: this.firstIssueDate,
-        //     secondProvisionIssue: this.secondIssueDate
-        // });
-        //
-        // console.log(val);
-
         this.provisionApi.getDifferences({
             provisionId: this.provisionId.toString(),
             firstProvisionIssue: this.firstIssueDate,
@@ -62,7 +54,6 @@ export class ProvisionComparisonComponent implements OnInit {
         }).subscribe(result => {
             this.difference = result;
             this.removedContent = result.removedContent
-            console.log(this.difference);
         });
     }
 }

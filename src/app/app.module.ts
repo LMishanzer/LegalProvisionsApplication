@@ -18,7 +18,6 @@ import { ProvisionContentComponent } from './components/provision-content/provis
 import { ProvisionSidebarComponent } from './components/provision-sidebar/provision-sidebar.component';
 import {MatCardModule} from "@angular/material/card";
 import { ProvisionMenuComponent } from './components/provision-menu/provision-menu.component';
-import { ProvisionMenuItemComponent } from './components/provision-menu-item/provision-menu-item.component';
 import { AddProvisionComponent } from './components/add-provision/add-provision.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import {MatInputModule} from "@angular/material/input";
@@ -33,7 +32,7 @@ import { ComparisonItemNewComponent } from './components/comparison-item-new/com
 import {MatSelectModule} from "@angular/material/select";
 import {CdkDrag, CdkDragHandle, CdkDropList} from "@angular/cdk/drag-drop";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {MatNativeDateModule} from "@angular/material/core";
+import {MAT_DATE_FORMATS, MatNativeDateModule} from "@angular/material/core";
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import {MatDialogModule} from "@angular/material/dialog";
 import { AddReferenceDialogComponent } from './components/add-reference-dialog/add-reference-dialog.component';
@@ -44,6 +43,18 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { ErrorBoxComponent } from './components/error-box/error-box.component';
 import {ErrorIntercept} from "./interceptors/ErrorIntercept";
 
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'LL',
+    },
+    display: {
+        dateInput: 'YYYY-MM-DD',
+        monthYearLabel: 'YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'YYYY',
+    },
+};
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -51,7 +62,6 @@ import {ErrorIntercept} from "./interceptors/ErrorIntercept";
         ProvisionContentComponent,
         ProvisionSidebarComponent,
         ProvisionMenuComponent,
-        ProvisionMenuItemComponent,
         AddProvisionComponent,
         ToolbarComponent,
         AddProvisionContentComponent,
@@ -99,7 +109,8 @@ import {ErrorIntercept} from "./interceptors/ErrorIntercept";
             provide: HTTP_INTERCEPTORS,
             useClass: ErrorIntercept,
             multi: true
-        }
+        },
+        {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
     ],
     bootstrap: [AppComponent]
 })

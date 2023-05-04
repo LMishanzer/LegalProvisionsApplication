@@ -34,7 +34,6 @@ export class ProvisionSidebarComponent implements OnInit {
     ngOnInit() {
         this.route.params.subscribe(params => {
             let id = params['provisionId'];
-            console.log("URL id has changed");
             this.getProvision(undefined, id);
         })
     }
@@ -49,8 +48,6 @@ export class ProvisionSidebarComponent implements OnInit {
         );
 
         if (date) {
-            console.log(date);
-
             date = new Date(date);
 
             this.provisionApi.getProvisionVersion(id, date).subscribe(result =>

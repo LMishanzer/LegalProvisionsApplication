@@ -1,11 +1,11 @@
 <div id="form-container">
   <div class="date-picker form">
     <mat-form-field appearance="fill">
-      <mat-label>Issue date</mat-label>
+      <mat-label>Datum schválení</mat-label>
       <input matInput [matDatepicker]="pickerIssue"
              [(ngModel)]="issueDate" required
              (dateChange)="issueDate = correctDate(issueDate)">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>DD. MM. YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="pickerIssue"></mat-datepicker-toggle>
       <mat-datepicker #pickerIssue></mat-datepicker>
     </mat-form-field>
@@ -13,31 +13,53 @@
 
   <div class="date-picker form">
     <mat-form-field appearance="fill">
-      <mat-label>Valid from</mat-label>
+      <mat-label>Platnost od</mat-label>
       <input matInput [matDatepicker]="pickerValid"
              [(ngModel)]="provisionFields.validFrom"
              (dateChange)="provisionFields.validFrom = correctDate(provisionFields.validFrom)">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>DD. MM. YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="pickerValid"></mat-datepicker-toggle>
       <mat-datepicker #pickerValid></mat-datepicker>
     </mat-form-field>
+
+    <button mat-icon-button
+            class="remove-button"
+            color="warn"
+            title="Smazat datum"
+            *ngIf="provisionFields.validFrom"
+            (click)="provisionFields.validFrom = undefined">
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
   </div>
 
   <div class="date-picker form">
     <mat-form-field appearance="fill">
-      <mat-label>Takes effect from</mat-label>
+      <mat-label>Účinnost od</mat-label>
       <input matInput [matDatepicker]="pickerEffect"
              [(ngModel)]="provisionFields.takesEffectFrom"
              (dateChange)="provisionFields.takesEffectFrom = correctDate(provisionFields.takesEffectFrom)">
-      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-hint>DD. MM. YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="pickerEffect"></mat-datepicker-toggle>
       <mat-datepicker #pickerEffect></mat-datepicker>
     </mat-form-field>
+
+    <button mat-icon-button
+            class="remove-button"
+            color="warn"
+            title="Smazat datum"
+            *ngIf="provisionFields.takesEffectFrom"
+            (click)="provisionFields.takesEffectFrom = undefined">
+      <mat-icon>
+        close
+      </mat-icon>
+    </button>
   </div>
 
   <div class="form">
     <mat-form-field id="issuer">
-      <mat-label>Vydavatel</mat-label>
+      <mat-label>Orgán, který vydal</mat-label>
       <mat-select [(ngModel)]="issuer" required>
         <mat-option *ngFor="let currentIssuer of issuers" [value]="currentIssuer">
           {{currentIssuer}}
@@ -48,12 +70,15 @@
 
   <div class="form">
     <mat-form-field id="keywords-form">
-      <mat-label>Keywords</mat-label>
+      <mat-hint>Zadejte klíčová slova. Oddělujte čárkou a mezerou.</mat-hint>
+      <mat-label>Klíčová slova</mat-label>
       <input matInput [(ngModel)]="keywords" >
     </mat-form-field>
   </div>
 
   <div class="files-container">
+    <h2>Nahrat úplnou verzi dokumentu</h2>
+
     <div *ngIf="provisionVersion?.fields?.fileMetadata?.name">
       <p>
         <span class="bold">Aktuální úplná verze dokumentu: </span>
@@ -67,8 +92,13 @@
   <app-add-provision-content [content]="provisionFields.content"
                              [availableTypes]="availableTypes"></app-add-provision-content>
 
-  <button mat-raised-button color="accent" (click)="saveProvision()" [disabled]="saving">
+  <button id="save-close-btn" mat-raised-button (click)="saveProvision(true)" [disabled]="saving">
+    Uložit a zavřit
+    <mat-progress-bar mode="indeterminate" *ngIf="saving && close"></mat-progress-bar>
+  </button>
+
+  <button id="save-only-btn" mat-raised-button color="accent" (click)="saveProvision(false)" [disabled]="saving">
     Uložit předpis
-    <mat-progress-bar mode="indeterminate" *ngIf="saving"></mat-progress-bar>
+    <mat-progress-bar mode="indeterminate" *ngIf="saving && !close"></mat-progress-bar>
   </button>
 </div>

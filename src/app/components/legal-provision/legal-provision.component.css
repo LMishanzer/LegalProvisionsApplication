@@ -36,6 +36,13 @@ mat-card-subtitle {
   right: 30px;
 }
 
+#organ {
+  width: 40%;
+  margin: 0;
+  display: inline;
+  font-style: italic;
+}
+
 .ref-button {
   margin-top: 25px;
 }

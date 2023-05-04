@@ -9,14 +9,18 @@
       </mat-icon>
     </button>
 
-    <app-legal-provision [provision]="provisionVersion"></app-legal-provision>
+    <app-legal-provision *ngIf="provision"
+                         [provisionVersion]="provisionVersion"
+                         [provisionHeader]="provision"></app-legal-provision>
 
     <div class="right-sidebar">
       <div class="fixed-content">
-        <app-versions-list [provisionHeader]="provision" (versionChanged)="getProvision($event)"></app-versions-list>
+        <app-versions-list *ngIf="provision"
+                           [provisionHeader]="provision"
+                           (versionChanged)="getProvision($event)"></app-versions-list>
 
         <mat-form-field appearance="fill" *ngIf="provision">
-          <mat-label>Compare</mat-label>
+          <mat-label>Porovnat s verzí</mat-label>
           <mat-select [(value)]="dateOfChange">
             <ng-container *ngFor="let date of provision.fields.datesOfChange">
               <mat-option *ngIf="date !== currentDate" [value]="date">
@@ -27,7 +31,7 @@
         </mat-form-field>
 
         <button mat-raised-button (click)="openComparisonPage()" color="primary">
-          Compare version
+          Porovnat verze
         </button>
 
         <div class="manipulation-buttons">

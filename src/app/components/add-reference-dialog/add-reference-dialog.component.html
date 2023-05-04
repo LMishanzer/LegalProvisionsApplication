@@ -32,7 +32,7 @@
     </div>
 
     <div class="list-container">
-      <mat-card *ngFor="let provision of provisionList">
+      <mat-card *ngFor="let provision of searchedProvisionsList">
         <div class="content" (click)="addReference(provision)">
           <mat-card-title>
             {{provision.fields.title}}

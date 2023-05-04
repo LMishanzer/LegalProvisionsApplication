@@ -16,7 +16,7 @@ export class SearchComponent {
 
     search() {
         if (this.searchTerm.length === 0) {
-            throw new Error('Search term cannot be empty.');
+            return;
         }
 
         this.searchService.search(this.searchTerm).subscribe(response => {

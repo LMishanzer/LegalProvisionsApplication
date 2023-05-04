@@ -1,15 +1,20 @@
 <div>
   <h2 *ngIf="itemType && showHeader" id="{{content.id?.toString()}}">
-    {{itemType}} {{content.identifier}}
+    {{itemType === 'Paragraf' ? '§' : itemType}} {{content.identifier}}
   </h2>
   <h3 *ngIf="content.title">{{content.title}}</h3>
   <p>
-    <span *ngIf="!showHeader && order" class="order">{{order}}. </span>
+    <ng-container *ngIf="!showHeader && order">
+      <span *ngIf="itemType === 'Odstavec'" class="order">({{order}}) </span>
+      <span *ngIf="itemType === 'Pododstavec'" class="order pododstavec">
+        {{String.fromCharCode(order + 96)}}) </span>
+      <span *ngIf="itemType === 'Bod'" class="order bod">{{order}}. </span>
+    </ng-container>
     {{content.textMain}}
   </p>
 
   <div *ngIf="content.references.length > 0">
-    <button mat-stroked-button (click)="openReferencesWindow()">
+    <button class="reference-button" mat-stroked-button (click)="openReferencesWindow()">
       Zobrazit odkazy
     </button>
   </div>
@@ -17,6 +22,6 @@
   <app-provision-content
     *ngFor="let innerContent of content.innerItems; let i = index"
     [content]="innerContent"
-    [itemType]="content.innerItemsType"
+    [itemType]="content.innerItemsType || ''"
     [order]="i + 1"></app-provision-content>
 </div>

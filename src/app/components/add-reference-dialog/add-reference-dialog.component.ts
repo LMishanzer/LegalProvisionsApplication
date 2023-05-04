@@ -12,7 +12,7 @@ import {concatMap} from "rxjs";
 })
 export class AddReferenceDialogComponent implements OnInit {
     searchTerm: string = '';
-    provisionList: ProvisionHeader[] = [];
+    searchedProvisionsList: ProvisionHeader[] = [];
 
     constructor(public dialogRef: MatDialogRef<AddReferenceDialogComponent>,
                 @Inject(MAT_DIALOG_DATA) public data: HeadersDialogData,
@@ -52,10 +52,12 @@ export class AddReferenceDialogComponent implements OnInit {
             throw new Error('Search term cannot be empty.');
         }
 
+        this.searchedProvisionsList = [];
+
         this.searchService.search(this.searchTerm).pipe(
             concatMap(items => items)
         ).subscribe(response => {
-            this.provisionList.push(response.provisionHeader);
+            this.searchedProvisionsList.push(response.provisionHeader);
         });
     }
 }

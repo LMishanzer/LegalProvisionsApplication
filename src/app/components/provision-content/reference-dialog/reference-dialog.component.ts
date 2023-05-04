@@ -29,10 +29,8 @@ export class ReferenceDialogComponent implements OnInit {
         );
     }
 
-    goToProvision(provisionHeader: ProvisionHeader): void {
-        this.router.navigate([`/provision/${provisionHeader.id.toString()}`]).then(() => {
-            console.log(`After navigation I am on:${this.router.url}`);
-        });
+    async goToProvision(provisionHeader: ProvisionHeader) {
+        await this.router.navigate([`/provision/${provisionHeader.id.toString()}`]);
         this.dialogRef.close();
     }
 }

@@ -2,13 +2,15 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ProvisionCreator, ProvisionVersion, ProvisionVersionFields} from "../../models/provision-version";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {ProvisionHeader} from "../../models/provision-header";
+import {ProvisionHeader, ProvisionHeaderFields} from "../../models/provision-header";
 import {EditModeEnum} from "../../models/edit-mode-enum";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Guid} from "guid-typescript";
 import {FileService} from "../../services/file.service";
 import {ApiSettings} from "../../api/api-settings";
 import {ErrorHandlerService} from "../../services/error-handler.service";
+import {CONTENT_TYPES, ISSUERS} from "../../constants/constants";
+import {DateAdapter} from "@angular/material/core";
 
 @Component({
   selector: 'app-add-provision',
@@ -25,12 +27,12 @@ export class AddProvisionComponent implements OnInit {
     editMode: EditModeEnum = EditModeEnum.Create;
     keywords: string = '';
     issueDate?: Date;
-    availableTypes: string[] = ['Část', 'Hlava', 'Díl', 'Oddíl', 'Pododdíl', 'Článek', 'Paragraf',
-        'Odstavec', 'Pododstavec', 'Bod'];
-    issuers: string[] = ['MŠMT', 'ČVUT', 'FIT'];
+    availableTypes: string[] = CONTENT_TYPES;
+    issuers: string[] = ISSUERS;
     issuer: string = this.issuers[0];
 
     saving: boolean = false;
+    close: boolean = false;
 
     fullVersionHref: string = '';
 
@@ -39,10 +41,13 @@ export class AddProvisionComponent implements OnInit {
                 private route: ActivatedRoute,
                 private fileService: FileService,
                 private router: Router,
-                private errorHandler: ErrorHandlerService) {
+                private errorHandler: ErrorHandlerService,
+                private readonly adapter: DateAdapter<Date>) {
     }
 
     async ngOnInit(): Promise<void> {
+        this.adapter.setLocale('cs-CZ');
+
         let provisionId = this.route.snapshot.paramMap.get('provisionId');
         if (provisionId) {
             let provisionGuid = Guid.parse(provisionId);
@@ -60,7 +65,7 @@ export class AddProvisionComponent implements OnInit {
         this.fullVersionHref = `${settings.baseUrl}/file/${provisionVersionId}`;
     }
 
-    async saveProvision(): Promise<void> {
+    async saveProvision(close: boolean): Promise<void> {
         if (!this.issueDate) {
             this.errorHandler.showError('Datum schválení není vyplněno.');
 
@@ -68,75 +73,92 @@ export class AddProvisionComponent implements OnInit {
         }
 
         this.saving = true;
+        this.close = close;
 
-        switch (this.editMode) {
-            case EditModeEnum.Create:
-                await this.createNewProvision();
-                break;
-            case EditModeEnum.NewVersion:
-                await this.addNewVersion();
-                break;
-            case EditModeEnum.UpdateVersion:
-                await this.updateVersion();
-                break;
+        let versionId: Guid | null = null;
+
+        try {
+            switch (this.editMode) {
+                case EditModeEnum.Create:
+                    versionId = await this.createNewProvision();
+                    break;
+                case EditModeEnum.NewVersion:
+                    await this.addNewVersion();
+                    break;
+                case EditModeEnum.UpdateVersion:
+                    await this.updateVersion();
+                    break;
+            }
+
+            if (close)
+                await this.router.navigateByUrl('/provision-list');
+
+            this.snackBar.open('Předpis byl úspěšně uložen', 'Close', {
+                duration: 3000
+            });
+
+            if (!close && this.editMode === EditModeEnum.Create && versionId)
+                await this.router.navigateByUrl(`/update-provision-version/${versionId.toString()}`);
         }
-
-        await this.router.navigateByUrl('/provision-list');
-
-        this.snackBar.open('Předpis byl úspěšně uložen', 'Close', {
-            duration: 3000
-        });
-
-        this.saving = false;
+        finally {
+            this.saving = false;
+        }
 
         return Promise.resolve();
     }
 
-    private async createNewProvision(): Promise<void> {
-        let provisionHeaderFields = {
+    private async createNewProvision(): Promise<Guid | null> {
+        let provisionHeaderFields: ProvisionHeaderFields = {
             title: this.provisionFields.content.title,
             issuer: this.issuer,
             keywords: this.keywords.split(', ')
         };
 
         if (!this.issueDate) {
-            this.snackBar.open('Datum schálení musí být vyplněn', 'Close');
-            return;
+            this.snackBar.open('Datum schválení musí být vyplněn', 'Close');
+            return null;
         }
 
         this.provisionFields.issueDate = this.issueDate;
 
-        return new Promise(resolve => {
-            this.provisionsApi.addProvision(provisionHeaderFields).subscribe(headerId => {
-                this.provisionFields.provisionHeader = headerId;
-                this.addProvisionVersion().then(_ => resolve());
-            });
+        return new Promise((resolve) => {
+            this.provisionsApi.addProvision(provisionHeaderFields)
+                .subscribe(headerId => {
+                    this.provisionFields.provisionHeader = headerId;
+                    this.provisionHeader = {
+                        id: headerId,
+                        fields: provisionHeaderFields
+                    }
+                    this.addProvisionVersion().then(versionId => resolve(versionId));
+                });
         });
     }
 
-    private async addNewVersion(): Promise<void> {
+    private async addNewVersion(): Promise<Guid | null> {
         if (!this.issueDate) {
-            this.snackBar.open('Datum schálení musí být vyplněno', 'Close');
-            return;
+            this.snackBar.open('Datum schválení musí být vyplněno', 'Close');
+            return null;
         }
 
         if (!this.provisionHeader?.id) {
-            throw new Error('Provision header ID is not defined');
+            throw new Error('ID předpisu není definován');
         }
 
         this.provisionFields.provisionHeader = this.provisionHeader?.id;
         this.provisionFields.issueDate = this.issueDate;
 
-        await this.addProvisionVersion();
+        await this.updateHeader()
+
+        let versionId = await this.addProvisionVersion();
 
         this.provisionHeader.fields.keywords = this.keywords.split(', ');
 
-        return Promise.resolve();
+        return Promise.resolve(versionId);
     }
 
     private async updateVersion(): Promise<void> {
         if (!this.issueDate) {
-            this.snackBar.open('Datum schálení musí být vyplněno', 'Close');
+            this.snackBar.open('Datum schválení musí být vyplněno', 'Close');
             return Promise.resolve();
         }
 
@@ -147,7 +169,7 @@ export class AddProvisionComponent implements OnInit {
 
         await this.updateHeader();
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.provisionsApi.updateVersion(this.provisionVersion!.id, this.provisionFields)
                 .subscribe(_ => {
                     if (this.file) {
@@ -162,20 +184,25 @@ export class AddProvisionComponent implements OnInit {
         });
     }
 
-    private async addProvisionVersion(): Promise<void> {
+    private async addProvisionVersion(): Promise<Guid> {
         await this.updateHeader();
 
-        return new Promise<void>((resolve) => {
-            this.provisionsApi.addProvisionVersion(this.provisionFields).subscribe(versionId => {
-                if (this.file) {
-                    this.fileService.uploadFile(versionId, this.file).subscribe(_ =>
-                        resolve()
-                    );
-                }
-                else {
-                    resolve();
-                }
-            });
+        return new Promise<Guid>((resolve) => {
+            this.provisionsApi.addProvisionVersion(this.provisionFields)
+                .subscribe(versionId => {
+                    this.provisionVersion = {
+                        id: versionId,
+                        fields: this.provisionFields
+                    }
+                    if (this.file) {
+                        this.fileService.uploadFile(versionId, this.file).subscribe(_ =>
+                            resolve(versionId)
+                        );
+                    }
+                    else {
+                        resolve(versionId);
+                    }
+                });
         })
     }
 
@@ -184,8 +211,10 @@ export class AddProvisionComponent implements OnInit {
             return Promise.resolve();
 
         this.provisionHeader.fields.keywords = this.keywords.split(', ');
+        this.provisionHeader.fields.issuer = this.issuer;
+        this.provisionHeader.fields.title = this.provisionFields.content.title;
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.provisionsApi.updateHeader(this.provisionHeader!.id, this.provisionHeader!.fields)
                 .subscribe(_ => resolve());
         });
@@ -199,31 +228,33 @@ export class AddProvisionComponent implements OnInit {
     }
 
     private async getHeader(provisionId: Guid): Promise<void> {
-        return new Promise(resolve => {
-            this.provisionsApi.getProvisionHeader(provisionId).subscribe(result => {
-                this.provisionHeader = result;
-                console.log(result);
-                this.keywords = result.fields.keywords.join(', ');
+        return new Promise((resolve) => {
+            this.provisionsApi.getProvisionHeader(provisionId)
+                .subscribe(result => {
+                    this.provisionHeader = result;
+                    this.keywords = result.fields.keywords.join(', ');
+                    this.issuer = result.fields.issuer;
 
-                resolve();
-            });
+                    resolve();
+                });
         });
     }
 
     private async getActualVersion(provisionId: Guid): Promise<void> {
-        return new Promise(resolve => {
-            this.provisionsApi.getActualProvision(provisionId).subscribe(result => {
-                this.provisionFields = result.fields;
+        return new Promise((resolve) => {
+            this.provisionsApi.getActualProvision(provisionId)
+                .subscribe(result => {
+                    this.provisionFields = result.fields;
 
-                resolve();
-            });
+                    resolve();
+                });
         });
     }
 
     private async getProvisionVersion(provisionVersionId: Guid): Promise<void> {
         this.editMode = EditModeEnum.UpdateVersion;
 
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             this.provisionsApi.getProvisionVersionById(provisionVersionId).subscribe(result => {
                 this.provisionVersion = result;
                 this.provisionFields = result.fields;
@@ -238,6 +269,8 @@ export class AddProvisionComponent implements OnInit {
                             resolve();
                         });
                 }
+                else
+                    resolve();
             });
         });
     }

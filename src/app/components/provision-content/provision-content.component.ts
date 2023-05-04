@@ -38,4 +38,6 @@ export class ProvisionContentComponent implements OnInit {
             data: data
         });
     }
+
+    protected readonly String = String;
 }

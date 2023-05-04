@@ -1,5 +1,7 @@
 <mat-card class="content">
   <div class="top" *ngIf="fileToDownloadUrl.length > 0">
+    <h3 *ngIf="provisionHeader" id="organ">Orgán, který vydal: {{provisionHeader!.fields.issuer}}</h3>
+
     <a mat-stroked-button
        id="download-button"
        color="warn"
@@ -14,12 +16,12 @@
   </div>
   <mat-card-header>
     <mat-card-title class="bold center">
-      {{provision.fields.content.title}}
+      {{provisionVersion.fields.content.title}}
     </mat-card-title>
     <mat-card-subtitle class="italic center">
-      {{provision.fields.content.textMain}}
+      {{provisionVersion.fields.content.textMain}}
 
-      <div *ngIf="provision.fields.content.references.length > 0" class="ref-button">
+      <div *ngIf="provisionVersion.fields.content.references.length > 0" class="ref-button">
         <button mat-stroked-button (click)="openReferencesWindow()">
           Zobrazit odkazy
         </button>
@@ -29,8 +31,8 @@
 
   </mat-card-header>
   <mat-card-content>
-    <app-provision-content *ngFor="let child of provision.fields.content.innerItems"
+    <app-provision-content *ngFor="let child of provisionVersion.fields.content.innerItems"
                            [content]="child"
-                           [itemType]="provision.fields.content.innerItemsType"></app-provision-content>
+                           [itemType]="provisionVersion.fields.content.innerItemsType || ''"></app-provision-content>
   </mat-card-content>
 </mat-card>

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {ProvisionHeader} from "../../models/provision-header";
 import {Guid} from "guid-typescript";
@@ -9,7 +9,7 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './versions-list.component.html',
   styleUrls: ['./versions-list.component.css']
 })
-export class VersionsListComponent implements OnInit, OnChanges {
+export class VersionsListComponent implements OnChanges {
 
     @Input() provisionHeader?: ProvisionHeader;
     @Output() versionChanged = new EventEmitter<Date>();
@@ -22,11 +22,8 @@ export class VersionsListComponent implements OnInit, OnChanges {
                 private route: ActivatedRoute) {
     }
 
-    ngOnInit() {
-        this.getDates();
-    }
-
     ngOnChanges() {
+        this.getDates();
         this.updateDates();
     }
 
@@ -53,5 +50,8 @@ export class VersionsListComponent implements OnInit, OnChanges {
     private updateDates(): void {
         let theArray = this.provisionHeader?.fields.datesOfChange || [];
         this.dates = theArray.reverse();
+
+        if (this.dates.length > 0)
+            this.selectedDate = this.dates[0];
     }
 }

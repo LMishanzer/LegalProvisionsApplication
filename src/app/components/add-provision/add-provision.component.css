@@ -26,3 +26,16 @@ button {
 .files-container {
   padding-left: 20px;
 }
+
+.remove-button {
+  float: none;
+  margin: 0;
+}
+
+#save-only-btn {
+  margin-right: 0;
+}
+
+#save-close-btn {
+  background-color: #ff8c26;
+}

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {ProvisionCreator, ContentItem} from "../../models/provision-version";
 import {CdkDragDrop, moveItemInArray} from "@angular/cdk/drag-drop";
 import {HeadersDialogData} from "../add-reference-dialog/headers-dialog-data";
@@ -7,24 +7,24 @@ import {MatDialog} from "@angular/material/dialog";
 import {ProvisionsApiService} from "../../services/provisions-api.service";
 import {Guid} from "guid-typescript";
 import {ProvisionHeader} from "../../models/provision-header";
+import {INNER_TYPES} from "../../constants/constants";
 
 @Component({
   selector: 'app-add-provision-content',
   templateUrl: './add-provision-content.component.html',
   styleUrls: ['./add-provision-content.component.css']
 })
-export class AddProvisionContentComponent implements OnInit {
+export class AddProvisionContentComponent implements OnInit, OnChanges {
     @Input() content: ContentItem = ProvisionCreator.getEmptyContent();
     @Input() type?: string = '';
     @Input() availableTypes: string[] = [];
+    @Input() order: number = 0;
 
     @Output() remove = new EventEmitter<void>();
 
     label: string = this.content.title || '';
-    identifierVisible: boolean = true;
-    titleVisible: boolean = true;
-    textMainVisible: boolean = true;
     references: ProvisionHeader[] = [];
+    canAddTitle: boolean = true;
 
     availableTypesForChildren: string[] = [];
 
@@ -34,15 +34,34 @@ export class AddProvisionContentComponent implements OnInit {
 
     async ngOnInit() {
         await this.getReferences();
+        this.propagateTypes();
+    }
+
+    async ngOnChanges() {
+        this.propagateTypes();
+        await this.getReferences();
+
+        if (this.type)
+            this.canAddTitle = !INNER_TYPES.includes(this.type);
+
+        if (!this.canAddTitle) {
+            this.content.identifier = this.getIdentifier();
+        }
     }
 
     addSection(): void {
         if (!this.content.innerItems || this.content.innerItems.length === 0) {
-            let index = this.availableTypes.indexOf(this.content.innerItemsType || '');
-            this.availableTypesForChildren = this.availableTypes.slice(index + 1);
+            this.propagateTypes();
         }
 
         this.content.innerItems.push(ProvisionCreator.getEmptyContent());
+    }
+
+    private propagateTypes(): void {
+        let index = this.availableTypes.indexOf(this.content.innerItemsType || '');
+        let shift = this.content.innerItemsType === 'Článek' ? 2 : 1;
+
+        this.availableTypesForChildren = this.availableTypes.slice(index + shift);
     }
 
     drop(event: CdkDragDrop<string[]>) {
@@ -58,8 +77,14 @@ export class AddProvisionContentComponent implements OnInit {
     }
 
     childRemoved(childIndex: number) {
-        if (childIndex > -1) {
-            this.content.innerItems.splice(childIndex, 1);
+        if (childIndex <= -1) {
+            return;
+        }
+
+        this.content.innerItems.splice(childIndex, 1);
+
+        if (this.content.innerItems.length === 0) {
+            this.content.innerItemsType = undefined;
         }
     }
 
@@ -68,12 +93,8 @@ export class AddProvisionContentComponent implements OnInit {
             references: this.references
         };
 
-        console.log(data);
-
         let dialogRef = this.dialog.open(AddReferenceDialogComponent, {
             data: data,
-            // width: '700px',
-            // height: '400px'
         });
 
         dialogRef.afterClosed().subscribe(_ => {
@@ -81,17 +102,29 @@ export class AddProvisionContentComponent implements OnInit {
             this.content.references = data.references.map(r => ({
                 provisionId: r.id.toString()
             }));
-
-            console.log(data.references);
         });
     }
 
+    private getReferencesStarted: boolean = false;
+
     private async getReferences(): Promise<void> {
-        if (this.content.references.length > 0) {
-            for (let reference of this.content.references) {
-                let provisionHeader = await this.getProvision(Guid.parse(reference.provisionId));
-                this.references.push(provisionHeader);
+        if (this.getReferencesStarted)
+            return;
+
+        this.getReferencesStarted = true;
+
+        try {
+            if (this.content.references.length > 0 && this.references.length === 0) {
+                this.references = [];
+
+                for (let reference of this.content.references) {
+                    let provisionHeader = await this.getProvision(Guid.parse(reference.provisionId));
+                    this.references.push(provisionHeader);
+                }
             }
+        }
+        finally {
+            this.getReferencesStarted = false;
         }
     }
 
@@ -101,5 +134,18 @@ export class AddProvisionContentComponent implements OnInit {
                 resolve(result)
             );
         });
+    }
+
+    private getIdentifier(): string {
+        switch (this.type) {
+            case 'Odstavec':
+                return `(${this.order})`;
+            case 'Pododstavec':
+                return `${String.fromCharCode(96 + this.order)})`;
+            case 'Bod':
+                return `${this.order}.`;
+        }
+
+        return '';
     }
 }
