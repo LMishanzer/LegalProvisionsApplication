@@ -261,13 +261,7 @@ export class AddProvisionComponent implements OnInit {
                 this.issueDate = result.fields.issueDate;
 
                 if (!this.provisionHeader) {
-                    this.provisionsApi.getProvisionHeader(result.fields.provisionHeader)
-                        .subscribe(headerResult => {
-                            this.provisionHeader = headerResult;
-                            this.keywords = headerResult.fields.keywords.join(', ');
-
-                            resolve();
-                        });
+                    this.getProvisionHeader(result.fields.provisionHeader).then(_ => resolve());
                 }
                 else
                     resolve();
