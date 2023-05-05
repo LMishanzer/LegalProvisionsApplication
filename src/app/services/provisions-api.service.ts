@@ -112,4 +112,13 @@ export class ProvisionsApiService {
 
         return body;
     }
+
+    private getFormattedBody(version: ProvisionVersionFields): any {
+        let body: any = JSON.parse(JSON.stringify(version));
+        body.issueDate = this.getDateOnly(version.issueDate);
+        body.validFrom = this.getDateOnly(version.validFrom);
+        body.takesEffectFrom = this.getDateOnly(version.takesEffectFrom);
+
+        return body;
+    }
 }
