@@ -51,12 +51,8 @@ export class ProvisionsApiService {
         return this.httpClient.post<Guid>(`${this.url}/addprovision`, provision);
     }
 
-    addProvisionVersion(version: ProvisionVersionFields): Observable<Guid> {
-        let body: any = JSON.parse(JSON.stringify(version));
-        body.issueDate = this.getDateOnly(version.issueDate);
-        body.validFrom = this.getDateOnly(version.validFrom);
-        body.takesEffectFrom = this.getDateOnly(version.takesEffectFrom);
-
+    addProvisionVersion(versionFields: ProvisionVersionFields): Observable<Guid> {
+        let body = this.getFormattedBody(versionFields);
         return this.httpClient.post<Guid>(`${this.url}/addprovisionversion`, body);
     }
 
@@ -65,7 +61,8 @@ export class ProvisionsApiService {
     }
 
     updateVersion(versionId: Guid, versionFields: ProvisionVersionFields): Observable<any> {
-        return this.httpClient.put(`${this.url}/updateversion/${versionId.toString()}`, versionFields);
+        let body = this.getFormattedBody(versionFields);
+        return this.httpClient.put(`${this.url}/updateversion/${versionId.toString()}`, body);
     }
 
     updateHeader(headerId: Guid, headerFields: ProvisionHeaderFields): Observable<any> {
@@ -80,18 +77,9 @@ export class ProvisionsApiService {
         return this.httpClient.delete(`${this.url}/deleteprovisionversion/${versionId}`);
     }
 
-
-
-    getAllVersions(): Observable<ProvisionVersion[]> {
-        return this.httpClient.get<ProvisionVersion[]>(`${this.url}/getall`);
-    }
-
-    getOne(id: Guid): Observable<ProvisionVersion> {
-        return this.httpClient.get<ProvisionVersion>(`${this.url}/getone/${id.toString()}`);
-    }
-
     create(provisionFields: ProvisionVersionFields): Observable<Guid> {
-        return this.httpClient.post<Guid>(`${this.url}/create`, provisionFields);
+        let body = this.getFormattedBody(provisionFields);
+        return this.httpClient.post<Guid>(`${this.url}/create`, body);
     }
 
     private getDateOnly(date?: Date): string | null {
@@ -108,5 +96,14 @@ export class ProvisionsApiService {
         });
 
         return `${date.getFullYear()}-${formattedMonth}-${formattedDay}`;
+    }
+
+    private getFormattedBody(version: ProvisionVersionFields): any {
+        let body: any = JSON.parse(JSON.stringify(version));
+        body.issueDate = this.getDateOnly(version.issueDate);
+        body.validFrom = this.getDateOnly(version.validFrom);
+        body.takesEffectFrom = this.getDateOnly(version.takesEffectFrom);
+
+        return body;
     }
 }
