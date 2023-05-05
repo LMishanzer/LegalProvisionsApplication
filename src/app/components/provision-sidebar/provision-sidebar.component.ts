@@ -83,10 +83,16 @@ export class ProvisionSidebarComponent implements OnInit {
         dialogRef.afterClosed().subscribe(_ => {
             if (data.result) {
                 this.provisionApi.deleteProvisionVersion(version.id).subscribe(_ => {
-                    this.getProvision();
                     this.snackBar.open('Verze byla smazána', 'Close', {
                         duration: 3000
                     });
+
+                    if (this.provision?.fields.datesOfChange?.length === 1) {
+                        this.router.navigateByUrl('/provision-list');
+                        return;
+                    }
+
+                    this.getProvision();
                 });
             }
         });

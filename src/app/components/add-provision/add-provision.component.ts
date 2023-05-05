@@ -48,15 +48,20 @@ export class AddProvisionComponent implements OnInit {
     async ngOnInit(): Promise<void> {
         this.adapter.setLocale('cs-CZ');
 
+        this.editMode = EditModeEnum.Create;
+
         let provisionId = this.route.snapshot.paramMap.get('provisionId');
         if (provisionId) {
             let provisionGuid = Guid.parse(provisionId);
             await this.getProvisionHeader(provisionGuid);
+            this.editMode = EditModeEnum.NewVersion;
         }
 
         let provisionVersionId = this.route.snapshot.paramMap.get('provisionVersionId');
         if (!provisionVersionId)
             return;
+
+        this.editMode = EditModeEnum.UpdateVersion;
 
         let provisionVersionGuid = Guid.parse(provisionVersionId);
         await this.getProvisionVersion(provisionVersionGuid);
@@ -99,6 +104,9 @@ export class AddProvisionComponent implements OnInit {
 
             if (!close && this.editMode === EditModeEnum.Create && versionId)
                 await this.router.navigateByUrl(`/update-provision-version/${versionId.toString()}`);
+        }
+        catch (err) {
+            this.errorHandler.showError('Chyba při uložení', err?.toString() || '');
         }
         finally {
             this.saving = false;
@@ -223,8 +231,6 @@ export class AddProvisionComponent implements OnInit {
     private async getProvisionHeader(provisionId: Guid): Promise<void> {
         await this.getHeader(provisionId);
         await this.getActualVersion(provisionId);
-
-        this.editMode = EditModeEnum.NewVersion;
     }
 
     private async getHeader(provisionId: Guid): Promise<void> {
@@ -252,8 +258,6 @@ export class AddProvisionComponent implements OnInit {
     }
 
     private async getProvisionVersion(provisionVersionId: Guid): Promise<void> {
-        this.editMode = EditModeEnum.UpdateVersion;
-
         return new Promise((resolve) => {
             this.provisionsApi.getProvisionVersionById(provisionVersionId).subscribe(result => {
                 this.provisionVersion = result;
