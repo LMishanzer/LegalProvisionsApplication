@@ -73,7 +73,7 @@ export class ProvisionSidebarComponent implements OnInit {
 
     deleteVersion(version: ProvisionVersion) {
         let data: ConfirmationDialogData = {
-            message: "Opravdu chcete smazat právní předpis?",
+            message: "Opravdu chcete smazat tuto verzi?",
             result: false
         };
         let dialogRef = this.dialog.open(ConfirmationDialogComponent, {
@@ -84,7 +84,7 @@ export class ProvisionSidebarComponent implements OnInit {
             if (data.result) {
                 this.provisionApi.deleteProvisionVersion(version.id).subscribe(_ => {
                     this.getProvision();
-                    this.snackBar.open('Předpis byl smazán', 'Close', {
+                    this.snackBar.open('Verze byla smazána', 'Close', {
                         duration: 3000
                     });
                 });
