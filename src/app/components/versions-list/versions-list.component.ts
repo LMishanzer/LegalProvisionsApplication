@@ -51,7 +51,7 @@ export class VersionsListComponent implements OnChanges {
         let theArray = this.provisionHeader?.fields.datesOfChange || [];
         this.dates = theArray.reverse();
 
-        if (this.dates.length > 0)
+        if (this.dates.length > 0 && !this.selectedDate)
             this.selectedDate = this.dates[0];
     }
 }
