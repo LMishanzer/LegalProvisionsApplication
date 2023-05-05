@@ -87,7 +87,7 @@ export class ProvisionsApiService {
             return null;
 
         try {
-            let formattedMonth = (date.getMonth() + 1).toLocaleString('en-US', {
+            let formattedMonth = (date?.getMonth() + 1).toLocaleString('en-US', {
                 minimumIntegerDigits: 2,
                 useGrouping: false
             });
