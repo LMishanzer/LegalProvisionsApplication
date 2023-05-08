@@ -38,16 +38,25 @@
 
           <div class="section">
             <h2 class="section-header">Verze</h2>
+            <button mat-raised-button
+                    class="edit-button"
+                    id="add-provision-version"
+                    routerLink="/add-provision-version/{{provision?.id?.toString()}}"
+                    title="Změnit předpis a uložit jako novou verzi">
+              Přidat verzi
+            </button>
             <button class="edit-button"
                     mat-raised-button
                     routerLink="/update-provision-version/{{provisionVersion.id}}"
-                    color="accent">
+                    color="accent"
+                    title="Změnit tuto verzi předpisu">
               Upravit verzi
             </button>
             <button class="delete-button"
                     mat-raised-button
                     color="warn"
-                    (click)="deleteVersion(provisionVersion)">
+                    (click)="deleteVersion(provisionVersion)"
+                    title="Smazat tuto verzi předpisu">
               Smazat verzi
             </button>
           </div>
@@ -57,16 +66,11 @@
           <div class="section">
             <h2 class="section-header">Předpis</h2>
             <button mat-raised-button
-                    class="edit-button"
-                    id="edit-provision"
-                    routerLink="/add-provision-version/{{provision?.id?.toString()}}">
-              Upravit přespis
-            </button>
-            <button mat-raised-button
                     class="delete-button"
                     id="delete-provision"
-                    (click)="deleteProvision()">
-              Smazat přespis
+                    (click)="deleteProvision()"
+                    title="Smazat celý předpis (včetně verzí)">
+              Smazat předpis
             </button>
           </div>
 

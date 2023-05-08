@@ -41,7 +41,7 @@ import { ReferenceDialogComponent } from './components/provision-content/referen
 import {MatTreeModule} from "@angular/material/tree";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import { ErrorBoxComponent } from './components/error-box/error-box.component';
-import {ErrorIntercept} from "./interceptors/ErrorIntercept";
+import {ErrorIntercept} from "./interceptors/error-intercept";
 
 export const MY_FORMATS = {
     parse: {

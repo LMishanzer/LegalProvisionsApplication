@@ -15,7 +15,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   styleUrls: ['./provision-sidebar.component.css']
 })
 export class ProvisionSidebarComponent implements OnInit {
-    isSidebarOpened: boolean = false;
+    isSidebarOpened: boolean = true;
 
     provision?: ProvisionHeader;
     provisionVersion: ProvisionVersion = ProvisionCreator.getEmptyProvision();

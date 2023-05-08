@@ -1,7 +1,8 @@
 <div class="version-list-container">
+  <h2>Verze předpisu</h2>
   <ul class="version-list" *ngIf="provisionHeader">
     <li *ngFor="let date of dates">
-      <a (click)="changeDate(date)" [ngClass]="{'selected': date === selectedDate}">
+      <a mat-stroked-button (click)="changeDate(date)" [ngClass]="{'selected': date === selectedDate}">
         {{date | date}}
       </a>
     </li>
