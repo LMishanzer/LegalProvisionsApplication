@@ -1,11 +1,12 @@
 <mat-card class="content">
-  <div class="top" *ngIf="fileToDownloadUrl.length > 0">
+  <div class="top">
     <h3 *ngIf="provisionHeader" id="organ">Orgán, který vydal: {{provisionHeader!.fields.issuer}}</h3>
 
     <a mat-stroked-button
        id="download-button"
        color="warn"
-       href="{{fileToDownloadUrl}}">
+       href="{{fileToDownloadUrl}}"
+       *ngIf="fileToDownloadUrl.length > 0">
 
       Stáhnout úplnou verzi dokumentu
 
