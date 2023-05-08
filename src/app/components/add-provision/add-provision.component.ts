@@ -54,6 +54,7 @@ export class AddProvisionComponent implements OnInit {
         if (provisionId) {
             let provisionGuid = Guid.parse(provisionId);
             await this.getProvisionHeader(provisionGuid);
+            await this.getActualVersion(provisionGuid);
             this.editMode = EditModeEnum.NewVersion;
         }
 
@@ -230,7 +231,6 @@ export class AddProvisionComponent implements OnInit {
 
     private async getProvisionHeader(provisionId: Guid): Promise<void> {
         await this.getHeader(provisionId);
-        await this.getActualVersion(provisionId);
     }
 
     private async getHeader(provisionId: Guid): Promise<void> {
