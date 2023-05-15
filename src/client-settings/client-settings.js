@@ -1,1 +1,1 @@
-window.appConfig_urlAPI = 'http://localhost:5024';
+window.appConfig_urlAPI = 'http://localhost';
